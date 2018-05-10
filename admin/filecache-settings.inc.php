@@ -68,6 +68,9 @@ $this->form_start(__('File Page Cache', 'o10n'), 'filecache');
                     <h5 class="h">&nbsp;Cache Expire</h5>
                     <input type="number" style="width:120px;" min="1" name="o10n[filecache.expire]" value="<?php $value('filecache.expire', 86400); ?>" placeholder="86400" />
                     <p class="description">Enter a time in seconds for the cache to expire. The default is <code>86400</code> seconds (1 day).</p>
+
+
+                <p class="suboption info_yellow">You can set the expire time of a page using the method <code>\O10n\page_cache_expire([time_in_seconds]);</code>.</p>
                 </div>
 
         </td>
@@ -83,7 +86,7 @@ $this->form_start(__('File Page Cache', 'o10n'), 'filecache');
 
             <div class="suboption" data-ns="filecache.opcache"<?php $visible('filecache.opcache'); ?>>
                 <label><input type="checkbox" value="1" name="o10n[filecache.opcache.filter.enabled]" data-json-ns="1"<?php $checked('filecache.opcache.filter.enabled'); ?> /> Enable boost policy</label>
-                <span data-ns="filecache.opcache.   filter"<?php $visible('filecache.opcache.filter'); ?>>
+                <span data-ns="filecache.opcache.filter"<?php $visible('filecache.opcache.filter'); ?>>
                     <select name="o10n[filecache.opcache.filter.type]" data-ns-change="filecache.opcache.filter" data-json-default="<?php print esc_attr(json_encode('include')); ?>">
                         <option value="include"<?php $selected('filecache.opcache.filter.type', 'include'); ?>>Include by default</option>
                         <option value="exclude"<?php $selected('filecache.opcache.filter.type', 'exclude'); ?>>Exclude by default</option>

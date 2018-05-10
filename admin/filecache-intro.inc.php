@@ -20,7 +20,7 @@ $module_version = $view->module->version();
 	<div class="metabox-prefs">
 		<div class="wrap about-wrap" style="position:relative;">
 			<div style="float:right;">
-				<a href="https://developers.google.com/web/fundamentals/performance/http2/" target="_blank" rel="noopener"><img src="<?php print $view->module->dir_url(); ?>admin/images/http2.png" alt="HTTP/2 Optimization" width="180" height="180" border="0" style="float:right;"></a>
+				<img src="<?php print $view->module->dir_url(); ?>admin/images/pagespeed.png" alt="File Page Cache" width="180" height="180" border="0" style="float:right;">
 			</div>
 			<h1><?php print $module_name; ?> <?php print $module_version; ?></h1>
 
