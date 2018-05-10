@@ -1,0 +1,603 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "pwa.json",
+    "title": "PWA / Service Worker Options",
+    "description": "Schema for Service Worker (PWA) Options JSON.",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "title": "Enable sevice worker optimization",
+            "type": "boolean",
+            "default": false
+        },
+        "scope": {
+            "title": "Service worker scope",
+            "type": "string",
+            "default": "/"
+        },
+        "register": {
+            "title": "Register service worker",
+            "type": "boolean",
+            "default": true
+        },
+        "unregister": {
+            "title": "Unregister service worker",
+            "type": "boolean",
+            "default": false
+        },
+        "verify": {
+            "title": "Verify service worker hash to force updates",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable service worker verification.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "update_interval": {
+                    "title": "Enter a time in seconds to verify the service worker hash.",
+                    "oneOf": [{
+                        "type": "number",
+                        "minimum": 0
+                    }, {
+                        "type": "string",
+                        "enum": [""]
+                    }]
+                }
+            },
+            "additionalProperties": false
+        },
+        "importScripts": {
+            "title": "Import and bundle service worker scripts",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable importScripts.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "scripts": {
+                    "title": "Scripts to import in service worker.",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "format": "uri",
+                        "minLength": 1
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "additionalProperties": false
+        },
+        "bypass": {
+            "title": "Service worker bypass filter",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable custom bypass filter.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "policy": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "pwa.json#/definitions/matchRequest"
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "additionalProperties": false
+        },
+        "offline_class": {
+            "title": "Add offline class to body based on HTML5 offline event.",
+            "type": "boolean",
+            "default": false
+        },
+        "cache_digest": {
+            "title": "Calculate a HTTP/2 Cache Digest for pushed assets.",
+            "type": "boolean",
+            "default": false
+        },
+        "html": {
+            "title": "HTML service worker optimization",
+            "type": "object",
+            "properties": {
+                "stream": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "title": "Enable HTML streaming.",
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "link_manifest": {
+            "title": "Link to manifest.json in HTML header.",
+            "type": "boolean",
+            "default": false
+        },
+        "meta": {
+            "title": "Custom web app meta HTML to print in the header.",
+            "type": "string"
+        },
+        "cache": {
+            "title": "Asset cache policy",
+            "properties": {
+                "pages": {
+                    "title": "Page cache policy",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "title": "Enable page cache policy",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "match": {
+                            "title": "Custom page cache match policy",
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "title": "Apply custom page cache match policy",
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "policy": {
+                                    "title": "Match conditions",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "pwa.json#/definitions/matchRequest"
+                                    },
+                                    "uniqueItems": true
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "strategy": {
+                            "$ref": "pwa.json#/definitions/cacheStrategy"
+                        },
+                        "offline": {
+                            "$ref": "pwa.json#/definitions/offlineUrl"
+                        },
+                        "cache": {
+                            "$ref": "pwa.json#/definitions/cacheConfig"
+                        },
+                        "mousedown": {
+                            "title": "Preload page on mouse down event.",
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    "required": ["enabled", "strategy"],
+                    "additionalProperties": false
+                },
+                "policy": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "match": {
+                                "title": "Match conditions",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "pwa.json#/definitions/matchRequest"
+                                },
+                                "uniqueItems": true
+
+                            },
+                            "strategy": {
+                                "$ref": "pwa.json#/definitions/cacheStrategy"
+                            },
+                            "offline": {
+                                "$ref": "pwa.json#/definitions/offlineUrl"
+                            },
+                            "cache": {
+                                "$ref": "pwa.json#/definitions/cacheConfig"
+                            }
+                        },
+                        "additionalProperties": false,
+                        "required": ["match", "strategy"]
+                    },
+                    "uniqueItems": true
+                },
+                "preload": {
+                    "title": "Assets to preload",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "preload_on_install": {
+                    "title": "Require preloading to complete in Service Worker installation",
+                    "type": "boolean"
+                },
+                "version": {
+                    "title": "Cache version",
+                    "type": "string"
+                },
+                "max_size": {
+                    "title": "Maximum cache entries to maintain",
+                    "type": "number",
+                    "minimum": 10
+                }
+            },
+            "additionalProperties": false
+        },
+        "manifest": {
+            "title": "Web App Manifest",
+            "type": "object",
+            "properties": {
+                "short_name": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "theme_color": {
+                    "type": "string"
+                },
+                "background_color": {
+                    "type": "string"
+                },
+                "display": {
+                    "type": "string",
+                    "enum": ["fullscreen", "standalone", "minimal-ui", "browser"]
+                },
+                "orientation": {
+                    "type": "string",
+                    "enum": ["any",
+                        "natural",
+                        "landscape",
+                        "landscape-primary",
+                        "landscape-secondary",
+                        "portrait",
+                        "portrait-primary",
+                        "portrait-secondary"
+                    ]
+                },
+                "start_url": {
+                    "type": "string"
+                },
+                "lang": {
+                    "type": "string"
+                },
+                "dir": {
+                    "type": "string"
+                },
+                "scope": {
+                    "type": "string"
+                },
+                "serviceworker": {
+                    "type": "object",
+                    "properties": {
+                        "src": {
+                            "type": "string"
+                        },
+                        "scope": {
+                            "type": "string"
+                        },
+                        "use_cache": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": true
+                },
+                "related_applications": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "platform": {
+                                "type": "string"
+                            },
+                            "url": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": true
+                    },
+                    "uniqueItems": true
+                },
+                "icons": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "src": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "sizes": {
+                                "type": "string"
+                            },
+                            "density": {
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": true
+                    },
+                    "uniqueItems": true
+                },
+                "screenshots": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "src": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "sizes": {
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": true
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "required": [
+                "name",
+                "short_name",
+                "icons",
+                "theme_color",
+                "background_color",
+                "display",
+                "orientation",
+                "start_url"
+            ],
+            "additionalProperties": true
+        },
+        "background-fetch": {
+            "title": "Fetch resources in background worker",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable background fetch",
+                    "type": "boolean",
+                    "default": false
+                },
+                "policy": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "title": "Policy reference",
+                                "type": "string"
+                            },
+                            "match": {
+                                "title": "Match conditions",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "pwa.json#/definitions/matchRequest"
+                                },
+                                "uniqueItems": true
+
+                            },
+                            "force": {
+                                "title": "Wait for background web worker to be ready.",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "timeout": {
+                                "title": "Time in milliseconds to wait for the service worker to reply.",
+                                "oneOf": [{
+                                    "type": "number",
+                                    "minimum": 0
+                                }, {
+                                    "type": "string",
+                                    "enum": [""]
+                                }],
+                                "default": 1000
+                            },
+                            "startup_timeout": {
+                                "title": "Time in milliseconds to wait for the web worker to be ready.",
+                                "oneOf": [{
+                                    "type": "number",
+                                    "minimum": 0
+                                }, {
+                                    "type": "string",
+                                    "enum": [""]
+                                }],
+                                "default": 1000
+                            }
+                        },
+                        "additionalProperties": false,
+                        "required": ["match"]
+                    },
+                    "uniqueItems": true
+                },
+                "force": {
+                    "title": "Wait for background web worker to be ready.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "timeout": {
+                    "title": "Time in milliseconds to wait for the service worker to reply.",
+                    "oneOf": [{
+                        "type": "number",
+                        "minimum": 0
+                    }, {
+                        "type": "string",
+                        "enum": [""]
+                    }],
+                    "default": 5000
+                },
+                "startup_timeout": {
+                    "title": "Time in milliseconds to wait for the web worker to be ready.",
+                    "oneOf": [{
+                        "type": "number",
+                        "minimum": 0
+                    }, {
+                        "type": "string",
+                        "enum": [""]
+                    }],
+                    "default": 1000
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false,
+    "definitions": {
+        "matchRequest": {
+            "oneOf": [{
+                "title": "Match the URL of an asset.",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["url"]
+                    },
+                    "pattern": {
+                        "oneOf": [{
+                            "type": "string",
+                            "minLength": 1
+                        }, {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "uniqueItems": true
+                        }]
+                    },
+                    "regex": {
+                        "type": "boolean"
+                    },
+                    "exclude": {
+                        "type": "boolean"
+                    }
+                },
+                "required": ["type", "pattern"],
+                "additionalProperties": false
+            }, {
+                "title": "Match a request header.",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["header"]
+                    },
+                    "name": {
+                        "title": "Header name to match",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "pattern": {
+                        "oneOf": [{
+                            "type": "string",
+                            "minLength": 1
+                        }, {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "uniqueItems": true
+                        }, {
+                            "title": "Compare a numeric header value.",
+                            "type": "object",
+                            "properties": {
+                                "operator": {
+                                    "type": "string",
+                                    "enum": ["<", "=", ">"]
+                                },
+                                "value": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": ["operator", "value"],
+                            "additionalProperties": false
+                        }]
+                    },
+                    "regex": {
+                        "title": "Use regular expression for pattern",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "exclude": {
+                        "title": "Match requests not matching pattern",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "required": {
+                        "title": "Require header to be present",
+                        "type": "boolean",
+                        "default": false
+                    }
+                },
+                "required": ["type", "name", "pattern"],
+                "additionalProperties": false
+            }]
+        },
+        "cacheStrategy": {
+            "title": "Enter the cache strategy for the matched resources.",
+            "type": "string",
+            "enum": ["never", "cache", "network", "event"],
+            "default": "network"
+        },
+        "offlineUrl": {
+            "title": "Enter a path to an alternative resource to precache and serve when the network fails and no cache is available.",
+            "type": "string"
+        },
+        "cacheConfig": {
+            "title": "Cache configuration",
+            "type": "object",
+            "properties": {
+                "update_interval": {
+                    "title": "Enter a time in seconds to update the cache.",
+                    "oneOf": [{
+                        "type": "number",
+                        "minimum": 0
+                    }, {
+                        "type": "string",
+                        "enum": [""]
+                    }]
+                },
+                "max_age": {
+                    "title": "Enter an expire time in seconds.",
+                    "oneOf": [{
+                        "type": "number",
+                        "minimum": 0
+                    }, {
+                        "type": "string",
+                        "enum": [""]
+                    }]
+                },
+                "head_update": {
+                    "title": "Update cache ased on HTTP HEAD request with etag/last-modified header validation.",
+                    "type": "boolean"
+                },
+                "notify": {
+                    "title": "Notify client on content update.",
+                    "type": "boolean"
+                },
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "pwa.json#/definitions/matchRequest"
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "additionalProperties": false
+        }
+    }
+}

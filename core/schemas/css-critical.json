@@ -1,0 +1,108 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-critical.json",
+    "title": "Critical CSS Optimization Configuration",
+    "description": "Schema for Critical CSS Optimization Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "master": {
+            "type": "boolean"
+        },
+        "minify": {
+            "title": "Minify Critical CSS",
+            "description": "Compress Critical CSS. This option will minify and optimize the combined critical CSS for a page and potentially remove duplicate CSS.",
+            "oneOf": [{
+                "type": "boolean",
+                "default": false
+            }, {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "clean-css": {
+                        "$ref": "css-clean-css.json#"
+                    },
+                    "cssmin": {
+                        "$ref": "css-cssmin.json#"
+                    }
+                },
+                "required": [
+                    "enabled"
+                ],
+                "additionalProperties": false
+            }]
+        },
+        "http2": {
+            "title": "HTTP/2 Server Push Critical CSS",
+            "description": "Load Critical CSS using HTTP/2 Server Push.",
+            "oneOf": [{
+                "type": "boolean",
+                "default": false
+            }, {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "type": "boolean",
+                        "default": false
+                    }
+                },
+                "required": [
+                    "enabled"
+                ],
+                "additionalProperties": false
+            }]
+        },
+        "editor_public": {
+            "title": "Enable public access for critical CSS editor.",
+            "oneOf": [{
+                "type": "boolean",
+                "default": false
+            }, {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "type": "boolean",
+                        "default": false
+                    }
+                },
+                "required": [
+                    "enabled"
+                ],
+                "additionalProperties": false
+            }]
+        },
+        "files": {
+            "title": "Critical CSS files",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "priority": {
+                        "type": "number",
+                        "default": 1
+                    },
+                    "conditions": {
+                        "$ref": "css-critical-conditions.json#"
+                    }
+                },
+                "required": ["file", "priority"],
+                "additionalProperties": false
+            },
+            "uniqueItems": true
+        },
+        "conditions": {
+            "$ref": "css-critical-conditions.json#"
+        }
+    },
+    "additionalProperties": false
+}

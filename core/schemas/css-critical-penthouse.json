@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-critical-penthouse.json",
+    "title": "Penthouse.js Options Critical CSS generator options",
+    "description": "Penthouse.js Critical CSS generator options",
+    "type": "object",
+    "properties": {
+        "keepLargerMediaQueries": {
+            "title": "Do not filter out larger media queries.",
+            "type": "boolean",
+            "default": false
+        },
+        "forceInclude": {
+            "title": "Selectors to keep",
+            "type": "boolean",
+            "default": false
+        },
+        "propertiesToRemove": {
+            "title": "Convert a color value in hsl notation to hexadecimal notation.",
+            "type": "boolean",
+            "default": false
+        },
+        "strict": {
+            "title": "Throw on CSS errors (will run faster if no errors)",
+            "type": "boolean",
+            "default": false
+        },
+        "maxEmbeddedBase64Length": {
+            "title": "Strip out inline base64 encoded resources larger than this",
+            "type": "boolean",
+            "default": false
+        },
+        "userAgent": {
+            "title": "Specify which user agent string when loading the page",
+            "type": "boolean",
+            "default": false
+        },
+        "renderWaitTime": {
+            "title": "render wait timeout before CSS processing starts (default: 100)",
+            "type": "boolean",
+            "default": false
+        },
+        "blockJSRequests": {
+            "title": "set to false to load (external) JS (default: true)",
+            "type": "boolean",
+            "default": false
+        },
+        "customPageHeaders": {
+            "title": "Custom headers",
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "additionalProperties": false
+}

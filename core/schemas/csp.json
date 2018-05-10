@@ -1,0 +1,182 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "csp.json",
+    "title": "Content Security Policy Configuration",
+    "description": "Schema for Content Security Policy Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "title": "Enable Content Security Policy",
+            "type": "boolean",
+            "default": false
+        },
+        "reportOnly": {
+            "title": "Report only, do not block",
+            "type": "boolean",
+            "default": false
+        },
+        "reportUri": {
+            "title": "Report URI",
+            "oneOf": [{
+                "type": "string",
+                "enum": [""]
+            }, {
+                "type": "string",
+                "format": "uri",
+                "minLength": 1
+            }]
+        },
+        "report-to": {
+            "title": "Reporting API",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Content Security Policy",
+                    "type": "boolean",
+                    "default": false
+                },
+                "group": {
+                    "title": "Reporting API group name",
+                    "type": "string",
+                    "minLenght": 1
+                }
+            },
+            "additionalProperties": false
+        },
+        "legacy": {
+            "title": "Include headers for legacy browsers (based on UA sniffing)",
+            "type": "boolean",
+            "default": false
+        },
+        "precsp10": {
+            "title": "Transform CPS to pre 1.0 in legacy browsers (based on UA sniffing)",
+            "type": "boolean",
+            "default": false
+        },
+        "meta": {
+            "title": "Include CSP meta in page header",
+            "type": "boolean",
+            "default": false
+        },
+        "directives": {
+            "title": "Content Security Policy directives",
+            "type": "object",
+            "properties": {
+                "base-uri": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "block-all-mixed-content": {
+                    "type": "boolean"
+                },
+                "child-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "connect-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "default-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "font-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "form-action": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "frame-ancestors": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "frame-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "img-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "manifest-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "media-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "object-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "script-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "style-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "prefetch-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                },
+                "plugin-types": {
+                    "$ref": "csp.json#/definitions/mimeTypeList"
+                },
+                "sandbox": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "allow-forms",
+                            "allow-modals",
+                            "allow-orientation-lock",
+                            "allow-pointer-lock",
+                            "allow-popups",
+                            "allow-popups-to-escape-sandbox",
+                            "allow-presentation",
+                            "allow-same-origin",
+                            "allow-scripts",
+                            "allow-top-navigation"
+                        ]
+                    }
+                },
+                "report-to": {
+                    "type": "string",
+                    "format": "uri",
+                    "minLength": 1
+                },
+                "report-uri": {
+                    "type": "string",
+                    "format": "uri",
+                    "minLength": 1
+                },
+                "require-sri-for": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": ["script", "style"]
+                    }
+                },
+                "upgrade-insecure-requests": {
+                    "type": "boolean"
+                },
+                "worker-src": {
+                    "$ref": "csp.json#/definitions/sourceList"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false,
+
+    "definitions": {
+        "sourceList": {
+            "title": "Directives configuration",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "mimeTypeList": {
+            "title": "Directives mime type configuration",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9][^/]+/[^/]+$"
+            },
+            "uniqueItems": true
+        }
+    }
+}

@@ -1,0 +1,170 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-cssmin.json",
+    "title": "PHP CSSMIN Options",
+    "description": "Schema for PHP CSSMIN Options JSON.",
+    "type": "object",
+    "properties": {
+        "filters": {
+            "title": "CSSMIN Filters",
+            "type": "object",
+            "properties": {
+                "ImportImports": {
+                    "title": "Import external css files defined with the @import at-rule into the minified CSS.",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "filter": {
+                            "title": "@import Filter",
+                            "type": "object",
+                            "optiontype": "filterlist",
+                            "properties": {
+                                "enabled": {
+                                    "title": "Filter stylesheets to import",
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "type": {
+                                    "title": "Filter List Type",
+                                    "type": "string",
+                                    "enum": [
+                                        "include",
+                                        "exclude"
+                                    ],
+                                    "default": "include"
+                                },
+                                "include": {
+                                    "type": "array",
+                                    "items": {
+                                        "title": "Stylesheets to include.",
+                                        "type": "string"
+                                    },
+                                    "uniqueItems": true
+                                },
+                                "exclude": {
+                                    "type": "array",
+                                    "items": {
+                                        "title": "Stylesheets to exclude.",
+                                        "type": "string"
+                                    },
+                                    "uniqueItems": true
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "RemoveComments": {
+                    "title": "Remove comments.",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "whitelist": {
+                            "title": "Regular expression whitelisting any important comments to preserve.",
+                            "type": "string",
+                            "default": "/(^\\/\\*!|@preserve|copyright|license|author|https?:|www\\.)/i",
+                            "size": 80,
+                            "placeholder": "Leave blank to remove all comments."
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "RebaseURLs": {
+                    "title": "Convert relative URLs to absolute URLs.",
+                    "github_author": {
+                        "url": "https://github.com/pear/Net_URL2/",
+                        "name": "Net_URL2"
+                    },
+                    "type": "boolean",
+                    "default": true
+                },
+                "RemoveEmptyRulesets": {
+                    "title": "Remove any empty rulesets (including @keyframes at-rule block rulesets)",
+                    "type": "boolean",
+                    "default": true
+                },
+                "RemoveEmptyAtBlocks": {
+                    "title": "Remove any empty @font-face, @keyframes, @media and @page at-rule blocks.",
+                    "type": "boolean",
+                    "default": true
+                },
+                "ConvertLevel3Properties": {
+                    "title": "Add declaration tokens with browser-specific properties for CSS Level 3 properties.",
+                    "type": "boolean",
+                    "default": true
+                },
+                "ConvertLevel3AtKeyframes": {
+                    "title": "Convert @keyframes at-rule block to browser specific counterparts.",
+                    "type": "boolean",
+                    "default": true
+                },
+                "Variables": {
+                    "title": "Parse the variable declarations out of (<code>@variables</code>) at-rule blocks.",
+                    "type": "boolean",
+                    "default": true
+                },
+                "RemoveLastDelarationSemiColon": {
+                    "title": "Set the IsLast property of any last declaration in a ruleset, @font-face at-rule or @page at-rule block. If the property IsLast is TRUE the decrations will get stringified without tailing semicolon.",
+                    "type": "boolean",
+                    "default": true
+                }
+            },
+            "additionalProperties": false
+        },
+        "plugins": {
+            "title": "CSSMIN Plugins",
+            "type": "object",
+            "properties": {
+                "Variables": {
+                    "title": "Process var-statements (<code>@variables</code>) and set the declaration value to the variable value.",
+                    "type": "boolean",
+                    "default": true
+                },
+                "ConvertFontWeight": {
+                    "title": "Convert the font-weight values normal and bold to their numeric notation.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "ConvertHslColors": {
+                    "title": "Convert a color value in hsl notation to hexadecimal notation.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "ConvertRgbColors": {
+                    "title": "Convert a color value in rgb notation to hexadecimal notation.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "ConvertNamedColors": {
+                    "title": "Convert named color values to hexadecimal notation.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "CompressColorValues": {
+                    "title": "Convert hexadecimal color value with 6 chars to their 3 char hexadecimal notation (if possible).",
+                    "type": "boolean",
+                    "default": false
+                },
+                "CompressUnitValues": {
+                    "title": "Compress several unit values to their short notations.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "CompressExpressionValues": {
+                    "title": "Compress the content of expresssion() declaration values.",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}

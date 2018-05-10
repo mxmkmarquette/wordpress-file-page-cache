@@ -1,0 +1,101 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "html-voku-htmlmin.json",
+    "title": "HtmlMin Options",
+    "description": "Schema for HtmlMin Options JSON.",
+    "type": "object",
+    "properties": {
+        "doOptimizeViaHtmlDomParser": {
+            "title": "optimize html via \"HtmlDomParser()\"",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveComments": {
+            "title": "remove default HTML comments (depends on \"doOptimizeViaHtmlDomParser(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doSumUpWhitespace": {
+            "title": "sum-up extra whitespace from the Dom (depends on \"doOptimizeViaHtmlDomParser(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveWhitespaceAroundTags": {
+            "title": "remove whitespace around tags (depends on \"doOptimizeViaHtmlDomParser(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doOptimizeAttributes": {
+            "title": "optimize html attributes (depends on \"doOptimizeViaHtmlDomParser(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+
+        "doRemoveHttpPrefixFromAttributes": {
+            "title": "remove optional \"http:\"-prefix from attributes (depends on \"doOptimizeAttributes(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveDefaultAttributes": {
+            "title": "remove defaults (depends on \"doOptimizeAttributes(true)\" | disabled by default)",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveDeprecatedAnchorName": {
+            "title": "remove deprecated anchor-jump (depends on \"doOptimizeAttributes(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveDeprecatedScriptCharsetAttribute": {
+            "title": "remove deprecated charset-attribute - the browser will use the charset from the HTTP-Header, anyway (depends on \"doOptimizeAttributes(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveDeprecatedTypeFromScriptTag": {
+            "title": "remove deprecated script-mime-types (depends on \"doOptimizeAttributes(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveDeprecatedTypeFromStylesheetLink": {
+            "title": "remove \"type=text/css\" for css links (depends on \"doOptimizeAttributes(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveEmptyAttributes": {
+            "title": "remove some empty attributes (depends on \"doOptimizeAttributes(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveValueFromEmptyInput": {
+            "title": "remove 'value=\"\"' from empty &lt;input&gt; (depends on \"doOptimizeAttributes(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doSortCssClassNames": {
+            "title": "sort css-class-names, for better gzip results (depends on \"doOptimizeAttributes(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doSortHtmlAttributes": {
+            "title": "sort html-attributes, for better gzip results (depends on \"doOptimizeAttributes(true)\")",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveSpacesBetweenTags": {
+            "title": "remove more (aggressive) spaces in the dom (disabled by default)",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveOmittedQuotes": {
+            "title": "remove quotes e.g. class=\"lall\" => class=lall",
+            "type": "boolean",
+            "default": false
+        },
+        "doRemoveOmittedHtmlTags": {
+            "title": "remove ommitted html tags e.g. &lt;p&gt;lall&lt;/p&gt; => &lt;p&gt;lall ",
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "additionalProperties": false
+}

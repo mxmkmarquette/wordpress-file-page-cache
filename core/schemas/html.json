@@ -1,0 +1,140 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "html.json",
+    "title": "HTML Optimization Configuration",
+    "description": "Schema for HTML Optimization Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "master": {
+            "type": "boolean"
+        },
+        "minify": {
+            "title": "Minify HTML",
+            "description": "Compress HTML. This option will reduce the size of HTML but may require full page cache to maintain an optimal server speed.",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "minifier": {
+                    "$ref": "html.json#/definitions/minifiers"
+                },
+                "voku-htmlmin": {
+                    "$ref": "html-voku-htmlmin.json#"
+                }
+            },
+            "required": [
+                "enabled"
+            ],
+            "additionalProperties": false
+        },
+        "remove_comments": {
+            "title": "Strip HTML comments",
+            "description": "Remove HTML comments from HTML, e.g. <code>&lt;!-- comment --&gt;</code>.",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "preserve": {
+                        "title": "Preserve List",
+                        "description": "Enter (parts of) HTML comments to exclude from removal. One string per line.",
+                        "type": "array",
+                        "items": {
+                            "title": "The string to match.",
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "uniqueItems": true
+                    }
+                },
+                "required": [
+                    "enabled"
+                ],
+                "additionalProperties": false
+            }],
+            "default": false
+        },
+        "replace": {
+            "title": "HTML search and replace",
+            "description": "This option enables to replace strings in the HTML.",
+            "type": "array",
+            "items": {
+                "oneOf": [{
+                    "title": "String Match",
+                    "type": "object",
+                    "properties": {
+                        "search": {
+                            "type": "string"
+                        },
+                        "replace": {
+                            "type": "string"
+                        },
+                        "case": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    "required": [
+                        "search",
+                        "replace"
+                    ],
+                    "additionalProperties": false
+                }, {
+                    "title": "Regular Expression Match",
+                    "type": "object",
+                    "properties": {
+                        "search": {
+                            "type": "string"
+                        },
+                        "replace": {
+                            "type": "string"
+                        },
+                        "regex": {
+                            "title": "Regular expression",
+                            "type": "boolean",
+                            "enum": [
+                                true
+                            ]
+                        }
+                    },
+                    "required": [
+                        "search",
+                        "replace",
+                        "regex"
+                    ],
+                    "additionalProperties": false
+                }]
+            },
+            "uniqueItems": true
+        },
+        "minimum_bytes": {
+            "title": "Minimum bytes of HTML to activate optimization.",
+            "type": "number",
+            "minimum": 0,
+            "default": 100
+        },
+        "htmlminifier": {
+            "$ref": "html-htmlminifier.json#"
+        }
+    },
+    "additionalProperties": false,
+
+    "definitions": {
+        "minifiers": {
+            "title": "Minifier to use for minification",
+            "type": "string",
+            "enum": [
+                "htmlphp",
+                "voku-htmlmin",
+                "custom"
+            ],
+            "default": "htmlphp"
+        }
+    }
+}

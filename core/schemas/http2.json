@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http2.json",
+    "title": "HTTP/2 Optimization Configuration",
+    "description": "Schema for HTTP/2 Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "push": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable HTTP/2 Server Push",
+                    "type": "boolean",
+                    "default": false
+                },
+                "list": {
+                    "title": "HTTP/2 Server Push configuration",
+                    "type": "array",
+                    "items": {
+                        "title": "Asset to push",
+                        "type": "object",
+                        "properties": {
+                            "url": {
+                                "type": "string",
+                                "format": "uri",
+                                "minLength": 1
+                            },
+                            "as": {
+                                "title": "Type of asset",
+                                "type": "string",
+                                "enum": ["audio", "document", "embed", "fetch", "font", "image", "object", "script", "style", "track", "worker", "video"]
+                            },
+                            "type": {
+                                "title": "Mime type of asset",
+                                "type": "string",
+                                "pattern": "^[^/]+/[^/]+$"
+                            },
+                            "meta": {
+                                "title": "Add/remove meta rel=preload in header.",
+                                "type": "boolean"
+                            }
+                        },
+                        "required": ["url", "as"],
+                        "additionalProperties": false
+                    },
+                    "uniqueItems": true
+                },
+                "meta": {
+                    "title": "Add meta rel=preload to header.",
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "required": ["enabled"]
+        }
+    },
+    "additionalProperties": false
+}

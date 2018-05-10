@@ -1,0 +1,431 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "fonts.json",
+    "title": "Web Font Optimization Configuration",
+    "description": "Schema for Web Font Optimization Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "fontface": {
+            "title": "Font Face API font loader",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Font Face API font loader",
+                    "type": "boolean",
+                    "default": false
+                },
+                "rel_preload": {
+                    "title": "Enable Preload API font loader",
+                    "type": "boolean",
+                    "default": false
+                },
+                "requestAnimationFrame": {
+                    "title": "Render fonts using requestAnimationFrame",
+                    "type": "boolean",
+                    "default": false
+                },
+                "load_position": {
+                    "title": "Load position of web fonts",
+                    "type": "string",
+                    "enum": ["header", "footer", "timing"],
+                    "default": "header"
+                },
+                "load_timing": {
+                    "$ref": "timed-exec.json#/definitions/timingMethods"
+                },
+                "render_timing": {
+                    "$ref": "timed-exec.json#/definitions/execTiming"
+                },
+                "config": {
+                    "title": "Font Face API configuration",
+                    "type": "array",
+                    "items": {
+                        "title": "Font load config",
+                        "type": "object",
+                        "properties": {
+                            "families": {
+                                "title": "Fonts to load",
+                                "type": "array",
+                                "items": {
+                                    "title": "Font family",
+                                    "type": "object",
+                                    "properties": {
+                                        "family": {
+                                            "title": "Font family name",
+                                            "type": "string",
+                                            "minLength": 1
+                                        },
+                                        "src": {
+                                            "oneOf": [{
+                                                "title": "Font source URI",
+                                                "type": "string",
+                                                "format": "uri",
+                                                "minLength": 1
+                                            }, {
+                                                "title": "Multiple sources",
+                                                "type": "object",
+                                                "properties": {
+                                                    "woff2": {
+                                                        "type": "string",
+                                                        "format": "uri",
+                                                        "minLength": 1
+                                                    },
+                                                    "woff": {
+                                                        "type": "string",
+                                                        "format": "uri",
+                                                        "minLength": 1
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }]
+                                        },
+                                        "options": {
+                                            "title": "Web Font Observer options",
+                                            "type": "object",
+                                            "properties": {
+                                                "weight": {
+                                                    "$ref": "fonts.json#/definitions/fontWeight"
+                                                },
+                                                "style": {
+                                                    "$ref": "fonts.json#/definitions/fontStyle"
+                                                },
+                                                "stretch": {
+                                                    "$ref": "fonts.json#/definitions/fontStretch"
+                                                },
+                                                "variant": {
+                                                    "$ref": "fonts.json#/definitions/fontVariant"
+                                                },
+                                                "unicodeRange": {
+                                                    "type": "string"
+                                                },
+                                                "featureSettings": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "additionalProperties": false
+                                        }
+                                    },
+                                    "required": ["family", "src"],
+                                    "additionalProperties": false
+                                },
+                                "uniqueItems": true
+                            },
+                            "beforeload": {
+                                "title": "Before font load actions",
+                                "type": "object",
+                                "properties": {
+                                    "classList": {
+                                        "$ref": "fonts.json#/definitions/classList"
+                                    },
+                                    "method": {
+                                        "title": "Javascript method to call",
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "onload": {
+                                "title": "After font load actions",
+                                "type": "object",
+                                "properties": {
+                                    "classList": {
+                                        "$ref": "fonts.json#/definitions/classList"
+                                    },
+                                    "method": {
+                                        "title": "Javascript method to call",
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "rel_preload": {
+                                "title": "Enable Preload API font loader for font group",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "requestAnimationFrame": {
+                                "title": "Render font group using requestAnimationFrame",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "load_position": {
+                                "title": "Load position of web fonts",
+                                "type": "string",
+                                "enum": ["header", "footer", "timing"],
+                                "default": "header"
+                            },
+                            "load_timing": {
+                                "$ref": "timed-exec.json#/definitions/timingMethods"
+                            },
+                            "render_timing": {
+                                "$ref": "timed-exec.json#/definitions/execTiming"
+                            }
+                        },
+                        "required": ["families"],
+                        "additionalProperties": false
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        },
+        "fontfaceobserver": {
+            "title": "Font Face Observer font loader",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Font Face Observer font loader",
+                    "type": "boolean",
+                    "default": false
+                },
+                "config": {
+                    "title": "Font Face Observer configuration",
+                    "type": "array",
+                    "items": {
+                        "title": "Font load config",
+                        "type": "object",
+                        "properties": {
+                            "families": {
+                                "title": "Font family names to load",
+                                "type": "array",
+                                "items": {
+                                    "oneOf": [{
+                                        "title": "Font family name",
+                                        "type": "string",
+                                        "minLength": 1
+                                    }, {
+                                        "title": "Font family with options",
+                                        "type": "object",
+                                        "properties": {
+                                            "family": {
+                                                "title": "Font family name",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "options": {
+                                                "title": "Web Font Observer options",
+                                                "type": "object",
+                                                "properties": {
+                                                    "weight": {
+                                                        "$ref": "fonts.json#/definitions/fontWeight"
+                                                    },
+                                                    "style": {
+                                                        "$ref": "fonts.json#/definitions/fontStyle"
+                                                    },
+                                                    "stretch": {
+                                                        "$ref": "fonts.json#/definitions/fontStretch"
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        },
+                                        "required": ["family"],
+                                        "additionalProperties": false
+                                    }]
+                                },
+                                "uniqueItems": true
+                            },
+                            "beforeload": {
+                                "title": "Before font load actions",
+                                "type": "object",
+                                "properties": {
+                                    "classList": {
+                                        "$ref": "fonts.json#/definitions/classList"
+                                    },
+                                    "method": {
+                                        "title": "Javascript method to call",
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "onload": {
+                                "title": "After font load actions",
+                                "type": "object",
+                                "properties": {
+                                    "classList": {
+                                        "$ref": "fonts.json#/definitions/classList"
+                                    },
+                                    "method": {
+                                        "title": "Javascript method to call",
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "load_position": {
+                                "title": "Load position of web fonts",
+                                "type": "string",
+                                "enum": ["header", "footer", "timing"],
+                                "default": "header"
+                            },
+                            "load_timing": {
+                                "$ref": "timed-exec.json#/definitions/timingMethods"
+                            }
+                        },
+                        "required": ["families"],
+                        "additionalProperties": false
+                    },
+                    "uniqueItems": true
+                },
+                "load_position": {
+                    "title": "Load position of web fonts",
+                    "type": "string",
+                    "enum": ["header", "footer", "timing"],
+                    "default": "header"
+                },
+                "load_timing": {
+                    "$ref": "timed-exec.json#/definitions/timingMethods"
+                }
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        },
+        "googlefontloader": {
+            "title": "Google Web Font Loader library",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Google Web Font Loader library",
+                    "type": "boolean",
+                    "default": false
+                },
+                "config": {
+                    "title": "WebFontConfig variable",
+                    "type": "string"
+                },
+                "remove": {
+                    "title": "Remove existing Google Web Font Loader from HTML and javascript.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "load_position": {
+                    "title": "Load position of web fonts",
+                    "type": "string",
+                    "enum": ["header", "footer", "timing"],
+                    "default": "header"
+                },
+                "load_timing": {
+                    "$ref": "timed-exec.json#/definitions/timingMethods"
+                }
+            }
+        },
+        "critical-css-file": {
+            "title": "Critical CSS file name",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_.]+$"
+        },
+        "http2_push": {
+            "title": "HTTP/2 Server Push",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Push stylesheets",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "remove_linked": {
+            "title": "Remove linked fonts from HTML or CSS.",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Remove linked fonts",
+                    "type": "boolean",
+                    "default": false
+                },
+                "filter": {
+                    "title": "Font removal filter",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "title": "Filter stylesheets to remove",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "list": {
+                            "type": "array",
+                            "items": {
+                                "title": "Stylesheets to remove.",
+                                "type": "string"
+                            },
+                            "uniqueItems": true
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "cdn": {
+            "$ref": "cdn.json#"
+        }
+    },
+    "additionalProperties": false,
+
+    "definitions": {
+        "fontWeight": {
+            "oneOf": [{
+                "type": "string",
+                "enum": ["normal", "bold", "bolder", "lighter", "initial", "inherit"]
+            }, {
+                "type": "number",
+                "enum": [100, 200, 300, 400, 500, 600, 700, 800, 900]
+            }]
+        },
+        "fontStyle": {
+            "type": "string",
+            "enum": ["normal", "italic", "oblique", "initial", "inherit"]
+        },
+        "fontStretch": {
+            "type": "string",
+            "enum": ["ultra-condensed", "extra-condensed", "condensed", "semi-condensed", "normal", "semi-expanded", "expanded", "extra-expanded", "ultra-expanded", "initial", "inherit"]
+        },
+        "fontVariant": {
+            "type": "string",
+            "enum": ["normal", "small-caps", "initial", "inherit"]
+        },
+        "classList": {
+            "title": "Classlist modifications",
+            "type": "object",
+            "properties": {
+                "add": {
+                    "title": "Class name(s) to add",
+                    "oneOf": [{
+                        "type": "string",
+                        "minLength": 1
+                    }, {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "uniqueItems": true
+                    }]
+                },
+                "remove": {
+                    "title": "Class name(s) to remove",
+                    "oneOf": [{
+                        "type": "string",
+                        "minLength": 1
+                    }, {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "uniqueItems": true
+                    }]
+                },
+                "target": {
+                    "title": "QuerySelector for class modification",
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        }
+    }
+}

@@ -1,0 +1,77 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "cloudfront.json",
+    "title": "CloudFront Page Cache Configuration",
+    "description": "Schema for CloudFront Page Cache Configuration JSON.",
+
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "title": "Enable CloudFront Page Cache",
+            "type": "boolean",
+            "default": false
+        },
+        "host": {
+            "title": "Public host",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^/]+$"
+        },
+        "origin": {
+            "title": "Origin host",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^/]+$"
+        },
+        "domain": {
+            "title": "CloudFront domain",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^/]+$"
+        },
+        "max_age": {
+            "title": "Default expire age",
+            "oneOf": [{
+                "type": "string",
+                "enum": [""]
+            }, {
+                "type": "number"
+            }]
+
+        },
+        "invalidation": {
+            "title": "AWS API based cache invalidation",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable invalidation",
+                    "type": "boolean",
+                    "default": false
+                },
+                "distribution_id": {
+                    "title": "CloudFront distribution ID",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "api_key": {
+                    "title": "AWS API key",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "api_secret": {
+                    "title": "AWS API secret",
+                    "type": "string",
+                    "minLength": 1
+                },
+                "aws_region": {
+                    "title": "AWS API region",
+                    "type": "string"
+                }
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["enabled"],
+    "additionalProperties": false
+}

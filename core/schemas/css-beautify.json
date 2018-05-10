@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-beautify.json",
+    "title": "CSS Beautify Options",
+    "description": "Schema for CSS Beautify Options JSON.",
+    "type": "object",
+    "properties": {
+        "indent": {
+            "type": "string",
+            "default": "    "
+        },
+        "openbrace": {
+            "type": "string",
+            "enum": ["end-of-line", "separate-line"],
+            "default": "end-of-line"
+        },
+        "autosemicolon": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "additionalProperties": false
+}

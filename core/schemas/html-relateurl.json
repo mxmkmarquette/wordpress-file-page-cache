@@ -1,0 +1,90 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "html-relateurl.json",
+    "title": "Relateurl Configuration",
+    "description": "Schema for relateurl Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "defaultPorts": {
+            "type": "object",
+            "properties": {
+                "ftp": {
+                    "type": "number",
+                    "default": 21
+                },
+                "http": {
+                    "type": "number",
+                    "default": 80
+                },
+                "https": {
+                    "type": "number",
+                    "default": 443
+                }
+            },
+            "additionalProperties": false
+        },
+        "directoryIndexes": {
+            "type": "array",
+            "items": {
+                "title": "Index to match",
+                "type": "string",
+                "minLength": 1
+            },
+            "default": [
+                "index.html"
+            ]
+        },
+        "ignore_www": {
+            "type": "boolean",
+            "default": false
+        },
+        "output": {
+            "type": "string",
+            "enum": [
+                "absolute",
+                "pathRelative",
+                "rootRelative",
+                "shortest"
+            ],
+            "default": "shortest"
+        },
+        "rejectedSchemes": {
+            "type": "array",
+            "items": {
+                "title": "Scheme to match",
+                "type": "string",
+                "minLength": 1
+            },
+            "default": [
+                "data",
+                "javascript",
+                "mailto"
+            ]
+        },
+        "removeAuth": {
+            "type": "boolean",
+            "default": false
+        },
+        "removeDirectoryIndexes": {
+            "type": "boolean",
+            "default": true
+        },
+        "removeEmptyQueries": {
+            "type": "boolean",
+            "default": false
+        },
+        "removeRootTrailingSlash": {
+            "type": "boolean",
+            "default": true
+        },
+        "schemeRelative": {
+            "type": "boolean",
+            "default": true
+        },
+        "slashesDenoteHost": {
+            "type": "boolean",
+            "default": true
+        }
+    },
+    "additionalProperties": false
+}

@@ -1,0 +1,218 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-async.json",
+    "title": "CSS Async Optimization Configuration",
+    "description": "Schema for CSS Async Optimization Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "title": "Async loading",
+            "type": "boolean",
+            "default": false
+        },
+        "rel_preload": {
+            "title": "Load stylesheets using rel=preload",
+            "type": "boolean",
+            "default": false
+        },
+        "noscript": {
+            "title": "Add fallback stylesheets via <noscript>",
+            "type": "boolean",
+            "default": false
+        },
+        "filter": {
+            "title": "CSS Async Filter",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Filter stylesheets to load async",
+                    "type": "boolean",
+                    "default": false
+                },
+                "type": {
+                    "title": "Default include/exclude",
+                    "type": "string",
+                    "enum": [
+                        "include",
+                        "exclude"
+                    ],
+                    "default": "include"
+                },
+                "config": {
+                    "type": "array",
+                    "items": {
+                        "title": "Stylesheet filter configuration",
+                        "type": "object",
+                        "properties": {
+                            "match": {
+                                "title": "A string or regular expression to match a stylesheet URL or group key.",
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "regex": {
+                                "title": "Use regular expression match",
+                                "type": "boolean",
+                                "enum": [
+                                    true
+                                ]
+                            },
+                            "media": {
+                                "title": "Apply custom media query for responsive preloading.",
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "async": {
+                                "title": "Load stylesheet async (include/exclude)",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "minify": {
+                                "title": "Minify stylesheet",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "minifier": {
+                                "$ref": "css-minify.json#/definitions/minifiers"
+                            },
+                            "rel_preload": {
+                                "title": "Load stylesheet using rel=preload",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "noscript": {
+                                "title": "Add fallback stylesheets via <noscript>",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "load_position": {
+                                "title": "Load position of CSS",
+                                "type": "string",
+                                "enum": ["header", "footer", "timing"],
+                                "default": "header"
+                            },
+                            "load_timing": {
+                                "$ref": "timed-exec.json#/definitions/timingMethods"
+                            },
+                            "render_timing": {
+                                "$ref": "timed-exec.json#/definitions/timingMethods"
+                            },
+                            "localStorage": {
+                                "title": "Override stylesheet cache configuration",
+                                "oneOf": [{
+                                    "type": "boolean"
+                                }, {
+                                    "type": "object",
+                                    "properties": {
+                                        "max_size": {
+                                            "title": "Maximum size of stylesheet to store in cache.",
+                                            "type": "number",
+                                            "minimum": 1
+                                        },
+                                        "update_interval": {
+                                            "title": "Interval to update the cache.",
+                                            "type": "number",
+                                            "minimum": 1
+                                        },
+                                        "expire": {
+                                            "title": "Expire time in seconds.",
+                                            "type": "number",
+                                            "minimum": 1
+                                        },
+                                        "head_update": {
+                                            "title": "Use HTTP HEAD request to update cache based on etag / last-modified headers.",
+                                            "type": "boolean",
+                                            "default": true
+                                        }
+                                    },
+                                    "anyOf": [{
+                                        "required": ["max_size"]
+                                    }, {
+                                        "required": ["update_interval"]
+                                    }, {
+                                        "required": ["expire"]
+                                    }, {
+                                        "required": ["head_update"]
+                                    }],
+                                    "additionalProperties": false
+                                }]
+                            }
+                        },
+                        "required": ["match", "async"],
+                        "additionalProperties": false
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "required": ["enabled", "type"],
+            "additionalProperties": false
+        },
+        "load_position": {
+            "title": "Load position of CSS",
+            "type": "string",
+            "enum": ["header", "footer", "timing"],
+            "default": "header"
+        },
+        "load_timing": {
+            "$ref": "timed-exec.json#/definitions/timingMethods"
+        },
+        "render_timing": {
+            "$ref": "timed-exec.json#/definitions/execTiming"
+        },
+        "localStorage": {
+            "title": "HTML5 localStorage cache",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "title": "Cache stylesheets with localStorage.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "max_size": {
+                        "title": "Maximum size of stylesheet to store in cache.",
+                        "oneOf": [{
+                            "type": "string",
+                            "enum": [""]
+                        }, {
+                            "type": "number",
+                            "minimum": 1
+                        }],
+                        "default": 1048576
+                    },
+                    "update_interval": {
+                        "title": "Interval to update the cache.",
+                        "oneOf": [{
+                            "type": "string",
+                            "enum": [""]
+                        }, {
+                            "type": "number",
+                            "minimum": 1
+                        }],
+                        "default": ""
+                    },
+                    "expire": {
+                        "title": "Expire time in seconds.",
+                        "oneOf": [{
+                            "type": "string",
+                            "enum": [""]
+                        }, {
+                            "type": "number",
+                            "minimum": 1
+                        }],
+                        "default": 86400
+                    },
+                    "head_update": {
+                        "title": "Use HTTP HEAD request to update cache based on etag / last-modified headers.",
+                        "type": "boolean",
+                        "default": true
+                    }
+                },
+                "required": ["enabled"],
+                "additionalProperties": false
+            }]
+        }
+    },
+    "additionalProperties": false
+}

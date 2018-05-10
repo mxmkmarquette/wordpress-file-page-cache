@@ -1,0 +1,176 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "js-eslint.json",
+    "title": "ESLint Options",
+    "description": "Schema for Eslint Options JSON.",
+    "type": "object",
+    "properties": {
+        "parserOptions": {
+            "title": "Parser Options",
+            "type": "object",
+            "properties": {
+                "ecmaVersion": {
+                    "title": "3, 5 (default), 6, 7, or 8 to specify the version of ECMAScript syntax",
+                    "type": "number",
+                    "minimum": 4,
+                    "default": 5
+                },
+                "sourceType": {
+                    "title": "\"script\" (default) or \"module\" if your code is in ECMAScript modules",
+                    "type": "string",
+                    "enum": ["script", "module"],
+                    "default": "script"
+                },
+                "ecmaFeatures": {
+                    "title": "pass true to prevent discarding or mangling of function names. Useful for code relying on Function.prototype.name.",
+                    "type": "object",
+                    "properties": {
+                        "globalReturn": {
+                            "title": "allow return statements in the global scope",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "impliedStrict": {
+                            "title": " enable global strict mode (if ecmaVersion is 5 or greater)",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "jsx": {
+                            "title": "enable JSX",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "experimentalObjectRestSpread": {
+                            "title": "enable support for the experimental object rest/spread properties",
+                            "type": "boolean",
+                            "default": false
+                        }
+
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "env": {
+            "title": "Environment Options",
+            "type": "object",
+            "properties": {
+                "browser": {
+                    "title": "browser global variables",
+                    "type": "boolean",
+                    "default": false
+                },
+                "node": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "commonjs": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "shared-node-browser": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "es6": {
+                    "title": "enable all ECMAScript 6 features except for modules ",
+                    "type": "boolean",
+                    "default": false
+                },
+                "worker": {
+                    "title": "web workers global variables",
+                    "type": "boolean",
+                    "default": false
+                },
+                "amd": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "mocha": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "jasmine": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "jest": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "phantomjs": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "protractor": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "qunit": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "jquery": {
+                    "title": "jQuery global variables",
+                    "type": "boolean",
+                    "default": false
+                },
+                "prototypejs": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "shelljs": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "meteor": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "mongo": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "applescript": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "nashorn": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "serviceworker": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "atomtest": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "embertest": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "webextensions": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "greasemonkey": {
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "globals": {
+            "title": "Global Variables",
+            "type": "object"
+        },
+        "rules": {
+            "title": "Rules",
+            "type": "object"
+        }
+    },
+    "additionalProperties": false
+}

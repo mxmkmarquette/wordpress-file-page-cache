@@ -1,0 +1,330 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "html-htmlminifier.json",
+    "title": "HTMLMinifier Configuration",
+    "description": "Schema for HTMLMinifier Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "caseSensitive": {
+            "title": "Treat attributes in case sensitive manner (useful for custom HTML tags)",
+            "type": "boolean",
+            "default": false
+        },
+        "collapseBooleanAttributes": {
+            "title": "Omit attribute values from boolean attributes <a href=\"http://perfectionkills.com/experimenting-with-html-minifier/#collapse_boolean_attributes\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "type": "boolean",
+            "default": false
+        },
+        "collapseInlineTagWhitespace": {
+            "title": "Don't leave any spaces between <code>display:inline;</code> elements when collapsing. Must be used in conjunction with <code>collapseWhitespace=true</code>",
+            "type": "boolean",
+            "default": false
+        },
+        "collapseWhitespace": {
+            "title": "Collapse white space that contributes to text nodes in a document tree <a href=\"http://perfectionkills.com/experimenting-with-html-minifier/#collapse_whitespace\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "type": "boolean",
+            "default": false
+        },
+        "conservativeCollapse": {
+            "title": "Always collapse to 1 space (never remove it entirely). Must be used in conjunction with <code>collapseWhitespace=true</code>",
+            "type": "boolean",
+            "default": false
+        },
+        "customAttrAssign": {
+            "title": "Array of regex'es that allow to support custom attribute assign expressions (e.g. <code>'&lt;div flex?=\"{{mode != cover}}\"&gt;&lt;/div&gt;'</code>)",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a JSON array with regex paterns.",
+                "type": "array",
+                "items": {
+                    "title": "A regex string.",
+                    "type": "string"
+                },
+                "uniqueItems": true,
+                "default": []
+            }],
+            "default": false
+        },
+        "customAttrCollapse": {
+            "title": "Regex that specifies custom attribute to strip newlines from (e.g. <code>/ng-class/</code>)",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a regex patern.",
+                "type": "string",
+                "size": "40",
+                "default": "",
+                "placeholder": "/ng-class/"
+            }],
+            "default": false
+        },
+        "customAttrSurround": {
+            "title": "Array of regex'es that allow to support custom attribute surround expressions (e.g. <code>&lt;input {{#if value}}checked=\"checked\"{{/if}}&gt;</code>)",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a JSON array with regex paterns.",
+                "type": "array",
+                "items": {
+                    "title": "A regex string.",
+                    "type": "string"
+                },
+                "uniqueItems": true,
+                "default": []
+            }],
+            "default": false
+        },
+        "customEventAttributes": {
+            "title": "Array of regex'es that allow to support custom event attributes for <code>minifyJS</code> (e.g. <code>ng-click</code>)",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a JSON array with regex paterns.",
+                "type": "array",
+                "items": {
+                    "title": "A regex string.",
+                    "type": "string"
+                },
+                "placeholder": "[ \"/^on[a-z]{3,}$/\" ]",
+                "default": [
+                    "/^on[a-z]{3,}$/"
+                ],
+                "uniqueItems": true
+            }],
+            "default": false
+        },
+        "decodeEntities": {
+            "title": "Use direct Unicode characters whenever possible",
+            "type": "boolean",
+            "default": false
+        },
+        "html5": {
+            "title": "Parse input according to HTML5 specifications",
+            "type": "boolean",
+            "default": true
+        },
+        "ignoreCustomComments": {
+            "title": "Array of regex'es that allow to ignore certain comments, when matched",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a JSON array with regex paterns.",
+                "type": "array",
+                "items": {
+                    "title": "A regex string.",
+                    "type": "string"
+                },
+                "placeholder": "[ \"/^!/\" ]",
+                "default": [
+                    "/^!/"
+                ],
+                "uniqueItems": true
+            }],
+            "default": false
+        },
+        "ignoreCustomFragments": {
+            "title": "Array of regex'es that allow to ignore certain fragments, when matched (e.g. <code>&lt;?php ... ?&gt;</code>, <code>{{ ... }}</code>, etc.)",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a JSON array with regex paterns.",
+                "type": "array",
+                "items": {
+                    "title": "A regex string.",
+                    "type": "string"
+                },
+                "placeholder": "[ \"/<%[\\s\\S]*?%>/\", \"/<\\?[\\s\\S]*?\\?>/\" ]",
+                "default": [
+                    "/<%[\\s\\S]*?%>/",
+                    "/<\\?[\\s\\S]*?\\?>/"
+                ],
+                "uniqueItems": true
+            }],
+            "default": false
+        },
+        "includeAutoGeneratedTags": {
+            "title": "Insert tags generated by HTML parser",
+            "type": "boolean",
+            "default": true
+        },
+        "keepClosingSlash": {
+            "title": "Keep the trailing slash on singleton elements",
+            "type": "boolean",
+            "default": false
+        },
+        "maxLineLength": {
+            "title": "Specify a maximum line length. Compressed output will be split by newlines at valid HTML split-points",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a line length.",
+                "type": "number",
+                "minimum": 50,
+                "maximum": 99999,
+                "default": ""
+            }],
+            "default": false
+        },
+        "minifyCSS": {
+            "title": "Minify CSS in style elements and style attributes (uses <a href=\"https://github.com/jakubpawlowicz/clean-css/tree/4.1\" target=\"_blank\">clean-css v4.1</a>).",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a JSON object with <a href=\"https://github.com/jakubpawlowicz/clean-css/\" target=\"_blank\">clean-css options</a>.",
+                "$ref": "css-clean-css.json#",
+                "default": {},
+                "json-type": "object"
+            }],
+            "default": false
+        },
+        "minifyJS": {
+            "title": "Minify JavaScript in script elements and event attributes (uses <a href=\"https://github.com/mishoo/UglifyJS2\" target=\"_blank\">UglifyJS v3.0</a>)",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a JSON object with <a href=\"https://github.com/mishoo/UglifyJS2\" target=\"_blank\">UglifyJS 3 options</a>.",
+                "$ref": "js-uglifyjs.json#",
+                "default": {},
+                "json-type": "object"
+            }],
+            "default": false
+        },
+        "minifyURLs": {
+            "title": "Minify URLs in various attributes (uses <a href=\"https://github.com/stevenvachon/relateurl\" target=\"_blank\">relateurl v0.2</a>)",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a JSON object with <a href=\"https://github.com/stevenvachon/relateurl#options\" target=\"_blank\">relateurl options</a>.",
+                "$ref": "html-relateurl.json#",
+                "default": {},
+                "json-type": "object"
+            }],
+            "default": false
+        },
+        "preserveLineBreaks": {
+            "title": "Always collapse to 1 line break (never remove it entirely) when whitespace between tags include a line break. Must be used in conjunction with <code>collapseWhitespace=true</code>",
+            "type": "boolean",
+            "default": false
+        },
+        "preventAttributesEscaping": {
+            "title": "Prevents the escaping of the values of attributes",
+            "type": "boolean",
+            "default": false
+        },
+        "processConditionalComments": {
+            "title": "Process contents of conditional comments through minifier",
+            "type": "boolean",
+            "default": false
+        },
+        "processScripts": {
+            "title": "Array of strings corresponding to types of script elements to process through minifier (e.g. <code>text/ng-template</code>, <code>text/x-handlebars-template</code>, etc.)",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a JSON array with script types.",
+                "type": "array",
+                "items": {
+                    "title": "A script type.",
+                    "type": "string"
+                },
+                "placeholder": "[\"text/ng-template\",\"text/x-handlebars-template\"]",
+                "uniqueItems": true,
+                "default": []
+            }],
+            "default": false
+        },
+        "quoteCharacter": {
+            "title": "Type of quote to use for attribute values (' or \")",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "type": "string",
+                "enum": [
+                    "single",
+                    "double"
+                ],
+                "default": "double"
+            }],
+            "default": false
+        },
+        "removeAttributeQuotes": {
+            "title": "Remove quotes around attributes when possible <a href=\"http://perfectionkills.com/experimenting-with-html-minifier/#remove_attribute_quotes\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "type": "boolean",
+            "default": false
+        },
+        "removeComments": {
+            "title": "Strip HTML comments <a href=\"http://perfectionkills.com/experimenting-with-html-minifier/#remove_comments\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "type": "boolean",
+            "default": false
+        },
+        "removeEmptyAttributes": {
+            "title": "Remove all attributes with whitespace-only values <a href=\"http://perfectionkills.com/experimenting-with-html-minifier/#remove_empty_or_blank_attributes\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "title": "Enter a JSON array with attributes to remove. Leave blank to remove all empty attributes.",
+                "type": "array",
+                "items": {
+                    "title": "An attribute name.",
+                    "type": "string"
+                },
+                "placeholder": "Leave blank to remove all empty attributes.",
+                "uniqueItems": true,
+                "default": []
+            }],
+            "default": false
+        },
+        "removeEmptyElements": {
+            "title": "Remove all elements with empty contents <a href=\"http://perfectionkills.com/experimenting-with-html-minifier/#remove_empty_elements\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "type": "boolean",
+            "default": false
+        },
+        "removeOptionalTags": {
+            "title": "Remove optional tags <a href=\"http://perfectionkills.com/experimenting-with-html-minifier/#remove_optional_tags\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "type": "boolean",
+            "default": false
+        },
+        "removeRedundantAttributes": {
+            "title": "Remove attributes when value matches default. <a href=\"http://perfectionkills.com/experimenting-with-html-minifier/#remove_redundant_attributes\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "type": "boolean",
+            "default": false
+        },
+        "removeScriptTypeAttributes": {
+            "title": "Remove <code>type=\"text/javascript\"</code> from <code>script</code> tags. Other <code>type</code> attribute values are left intact",
+            "type": "boolean",
+            "default": false
+        },
+        "removeStyleLinkTypeAttributes": {
+            "title": "Remove <code>type=\"text/css\"</code> from <code>style</code> and <code>link</code> tags. Other <code>type</code> attribute values are left intact",
+            "type": "boolean",
+            "default": false
+        },
+        "removeTagWhitespace": {
+            "title": "Remove space between attributes whenever possible. <strong>Note that this will result in invalid HTML!</strong>",
+            "type": "boolean",
+            "default": false
+        },
+        "sortAttributes": {
+            "title": "Sort attributes by frequency <a href=\"https://github.com/kangax/html-minifier#sorting-attributes--style-classes\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "type": "boolean",
+            "default": false
+        },
+        "sortClassName": {
+            "title": "Sort style classes by frequency <a href=\"https://github.com/kangax/html-minifier#sorting-attributes--style-classes\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "type": "boolean",
+            "default": false
+        },
+        "trimCustomFragments": {
+            "title": "Trim white space around <code>ignoreCustomFragments</code>.",
+            "type": "boolean",
+            "default": false
+        },
+        "useShortDoctype": {
+            "title": "Replaces the <code>doctype</code> with the short (HTML5) doctype <a href=\"http://perfectionkills.com/experimenting-with-html-minifier/#use_short_doctype\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "additionalProperties": false
+}

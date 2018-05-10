@@ -1,0 +1,119 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "proxy.json",
+    "title": "Proxy Configuration",
+    "description": "Schema for Proxy Configuration JSON.",
+    "oneOf": [{
+        "type": "boolean"
+    }, {
+        "type": "object",
+        "properties": {
+            "enabled": {
+                "title": "Enable proxy.",
+                "type": "boolean",
+                "default": false
+            },
+            "include": {
+                "title": "Proxy include list.",
+                "type": "array",
+                "items": {
+                    "title": "Assets to include.",
+                    "type": "string"
+                },
+                "uniqueItems": true
+            },
+            "capture": {
+                "title": "Capture script-injected assets",
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "title": "Enable script-injection capture",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "list": {
+                        "title": "Proxy capture list",
+                        "type": "array",
+                        "items": {
+                            "oneOf": [{
+                                "title": "Asset URL to capture.",
+                                "type": "string",
+                                "format": "uri",
+                                "minLength": 1
+                            }, {
+                                "title": "Asset match rule",
+                                "type": "object",
+                                "properties": {
+                                    "match": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "regex": {
+                                        "title": "Use regular expression match",
+                                        "type": "boolean",
+                                        "default": false
+                                    },
+                                    "url": {
+                                        "title": "Asset URL corresponding to match.",
+                                        "type": "string",
+                                        "format": "uri",
+                                        "minLength": 1
+                                    }
+                                },
+                                "required": ["match", "url"],
+                                "additionalProperties": false
+                            }, {
+                                "title": "Rewrite URL",
+                                "type": "object",
+                                "properties": {
+                                    "match": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "regex": {
+                                        "title": "Use regular expression match",
+                                        "type": "boolean",
+                                        "default": false
+                                    },
+                                    "rewrite": {
+                                        "title": "Asset URL to rewrite.",
+                                        "type": "string",
+                                        "format": "uri",
+                                        "minLength": 1
+                                    }
+                                },
+                                "required": ["match", "rewrite"],
+                                "additionalProperties": false
+                            }, {
+                                "title": "Delete injected asset",
+                                "type": "object",
+                                "properties": {
+                                    "match": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "regex": {
+                                        "title": "Use regular expression match",
+                                        "type": "boolean",
+                                        "default": false
+                                    },
+                                    "delete": {
+                                        "title": "Delete script",
+                                        "type": "boolean",
+                                        "emum": [true],
+                                        "default": true
+                                    }
+                                },
+                                "required": ["match", "delete"],
+                                "additionalProperties": false
+                            }]
+                        },
+                        "uniqueItems": true
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "additionalProperties": false
+    }]
+}

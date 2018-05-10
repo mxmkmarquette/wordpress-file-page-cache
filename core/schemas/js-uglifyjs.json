@@ -1,0 +1,568 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "js-uglifyjs.json",
+    "title": "UglifyJS 3 Options",
+    "description": "Schema for UglifyJS 3 Options JSON.",
+    "type": "object",
+    "properties": {
+        "minify": {
+            "oneOf": [{
+                "type": "boolean",
+                "default": false
+            }, {
+                "title": "UglifyJS 3 Minify Options",
+                "type": "object",
+                "properties": {
+                    "toplevel": {
+                        "title": "set to true if you wish to enable top level variable and function name mangling and to drop unused variables and functions.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "ie8": {
+                        "title": "set to true to support IE8.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "keep_fnames": {
+                        "title": "pass true to prevent discarding or mangling of function names. Useful for code relying on Function.prototype.name.",
+                        "type": "boolean",
+                        "default": false
+                    }
+                },
+                "additionalProperties": false
+            }]
+        },
+        "parse": {
+            "oneOf": [{
+                "type": "boolean",
+                "enum": [false],
+                "default": false
+            }, {
+                "title": "UglifyJS 3 Parse Options",
+                "type": "object",
+                "properties": {
+                    "bare_returns": {
+                        "title": "support top level return statements",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "html5_comments": {
+                        "title": "support top level return statements",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "shebang": {
+                        "title": "support #!command as the first line",
+                        "type": "boolean",
+                        "default": true
+                    }
+                },
+                "additionalProperties": false
+            }]
+        },
+        "compress": {
+            "oneOf": [{
+                "type": "boolean",
+                "default": false
+            }, {
+                "title": "UglifyJS 3 Compress Options",
+                "type": "object",
+                "properties": {
+                    "booleans": {
+                        "title": "various optimizations for boolean context, for example !!a ? b : c → a ? b : c",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "collapse_vars": {
+                        "title": "Collapse single-use non-constant variables, side effects permitting.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "comparisons": {
+                        "title": "apply certain optimizations to binary nodes, e.g. !(a <= b) → a > b (only when unsafe_comps), attempts to negate binary nodes, e.g. a = !b && !c && !d && !e → a=!(b||c||d||e) etc.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "conditionals": {
+                        "title": "apply optimizations for if-s and conditional expressions",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "dead_code": {
+                        "title": "remove unreachable code",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "drop_console": {
+                        "title": "Pass true to discard calls to console.* functions. If you wish to drop a specific function call such as console.info and/or retain side effects from function arguments after dropping the function call then use pure_funcs instead.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "drop_debugger": {
+                        "title": "remove debugger; statements",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "evaluate": {
+                        "title": "attempt to evaluate constant expressions",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "expression": {
+                        "title": "Pass true to preserve completion values from terminal statements without return, e.g. in bookmarklets.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "global_defs": {
+                        "title": "Apply conditional compilation",
+                        "oneOf": [{
+                            "type": "boolean"
+                        }, {
+                            "title": "Declare global variables that UglifyJS will assume to be constants. <a href=\"https://github.com/mishoo/UglifyJS2#conditional-compilation\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+                            "type": "object",
+                            "default": {}
+                        }],
+                        "default": false
+                    },
+                    "hoist_funs": {
+                        "title": "Hoist function declarations",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "hoist_props": {
+                        "title": "hoist properties from constant object and array literals into regular variables subject to a set of constraints. For example: var o={p:1, q:2}; f(o.p, o.q); is converted to f(1, 2);. Note: hoist_props works best with mangle enabled, the compress option passes set to 2 or higher, and the compress option toplevel enabled.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "hoist_vars": {
+                        "title": "hoist var declarations (this is false by default because it seems to increase the size of the output in general)",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "if_return": {
+                        "title": "optimizations for if/return and if/continue",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "inline": {
+                        "title": "embed simple functions",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "join_vars": {
+                        "title": "join consecutive var statements",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "keep_fargs": {
+                        "title": "Prevents the compressor from discarding unused function arguments. You need this for code which relies on Function.length.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "keep_fnames": {
+                        "title": "Pass true to prevent the compressor from discarding function names. Useful for code relying on Function.prototype.name. See also: the keep_fnames mangle option.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "keep_infinity": {
+                        "title": "Pass true to prevent Infinity from being compressed into 1/0, which may cause performance issues on Chrome.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "loops": {
+                        "title": "optimizations for do, while and for loops when we can statically determine the condition.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "negate_iife": {
+                        "title": "negate \"Immediately-Called Function Expressions\" where the return value is discarded, to avoid the parens that the code generator would insert.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "passes": {
+                        "title": "The maximum number of times to repeat compress. ",
+                        "oneOf": [{
+                            "type": "boolean"
+                        }, {
+                            "title": "In some cases more than one pass leads to further compressed code. Keep in mind more passes will take more time.",
+                            "type": "number",
+                            "minimum": 1,
+                            "maximum": 5,
+                            "default": 1
+                        }],
+                        "default": false
+                    },
+                    "properties": {
+                        "title": "rewrite property access using the dot notation, for example foo[\"bar\"] → foo.bar",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "pure_funcs": {
+                        "title": "Functions to discard.",
+                        "oneOf": [{
+                            "type": "boolean"
+                        }, {
+                            "title": "Enter a JSON array with function names.",
+                            "type": "array",
+                            "items": {
+                                "title": "A function name.",
+                                "type": "string"
+                            },
+                            "placeholder": "[\"Math.floor\"]",
+                            "uniqueItems": true,
+                            "default": []
+                        }],
+                        "default": false
+                    },
+                    "pure_getters": {
+                        "title": "Assume that object property access doesn't have any side effects. Leave disabled for \"strict\".",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "reduce_funcs": {
+                        "title": "Allows single-use functions to be inlined as function expressions when permissible allowing further optimization. Enabled by default. Option depends on reduce_vars being enabled. Some code runs faster in the Chrome V8 engine if this option is disabled. Does not negatively impact other major browsers.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "reduce_vars": {
+                        "title": "Improve optimization on variables assigned with and used as constant values.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "sequences": {
+                        "title": "Join consecutive simple statements using the comma operator.",
+                        "oneOf": [{
+                            "type": "boolean",
+                            "default": true
+                        }, {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 200,
+                            "default": 200
+                        }],
+                        "default": true
+                    },
+                    "side_effects": {
+                        "title": "Pass false to disable potentially dropping functions marked as \"pure\". A function call is marked as \"pure\" if a comment annotation /*@__PURE__*/ or /*#__PURE__*/ immediately precedes the call. For example: /*@__PURE__*/foo();",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "switches": {
+                        "title": "de-duplicate and remove unreachable switch branches",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "toplevel": {
+                        "title": "drop unreferenced functions (\"funcs\") and/or variables (\"vars\") in the top level scope (false by default, true to drop both unreferenced functions and variables)",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "top_retain": {
+                        "title": "Prevent specific toplevel functions and variables from unused removal.",
+                        "oneOf": [{
+                            "title": "A regex string.",
+                            "type": "string"
+                        }, {
+                            "type": "array",
+                            "items": {
+                                "title": "A match string.",
+                                "type": "string"
+                            },
+                            "uniqueItems": true,
+                            "default": []
+                        }],
+                        "default": false
+                    },
+                    "typeofs": {
+                        "title": "Transforms typeof foo == \"undefined\" into foo === void 0. Note: recommend to set this value to false for IE10 and earlier versions due to known issues.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "unsafe": {
+                        "title": "apply \"unsafe\" transformations (discussion below)",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "unsafe_comps": {
+                        "title": "Reverse < and <= to > and >= to allow improved compression. This might be unsafe when an at least one of two operands is an object with computed values due the use of methods like get, or valueOf. This could cause change in execution order after operands in the comparison are switching. Compression only works if both comparisons and unsafe_comps are both set to true.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "unsafe_Func": {
+                        "title": "compress and mangle Function(args, code) when both args and code are string literals.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "unsafe_math": {
+                        "title": "optimize numerical expressions like 2 * x * 3 into 6 * x, which may give imprecise floating point results.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "unsafe_proto": {
+                        "title": "optimize expressions like Array.prototype.slice.call(a) into [].slice.call(a)",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "unsafe_regexp": {
+                        "title": "enable substitutions of variables with RegExp values the same way as if they are constants.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "unused": {
+                        "title": "Drop unreferenced functions and variables.",
+                        "oneOf": [{
+                            "type": "boolean",
+                            "default": true
+                        }, {
+                            "title": "Functions and variables.",
+                            "type": "string",
+                            "enum": [
+                                "keep_assign"
+                            ]
+                        }]
+                    }
+                },
+                "additionalProperties": false
+            }]
+        },
+        "mangle": {
+            "oneOf": [{
+                "type": "boolean",
+                "default": false
+            }, {
+                "title": "UglifyJS 3 Mangle Options",
+                "type": "object",
+                "properties": {
+                    "eval": {
+                        "title": "Pass true to mangle names visible in scopes where eval or with are used.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "keep_fnames": {
+                        "title": "Pass true to not mangle function names. Useful for code relying on Function.prototype.name. See also: the keep_fnames compress option.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "reserved": {
+                        "title": "Pass an array of identifiers that should be excluded from mangling. Example: [\"foo\", \"bar\"].",
+                        "oneOf": [{
+                            "type": "boolean"
+                        }, {
+                            "title": "Enter a JSON array with identifiers that should be excluded from mangling.",
+                            "type": "array",
+                            "items": {
+                                "title": "A identifier.",
+                                "type": "string"
+                            },
+                            "placeholder": "[\"foo\",\"bar\"]",
+                            "uniqueItems": true,
+                            "default": []
+                        }],
+                        "default": false
+                    },
+                    "toplevel": {
+                        "title": "Pass true to mangle names declared in the top level scope.",
+                        "type": "boolean",
+                        "default": true
+                    }
+                },
+                "additionalProperties": false
+            }]
+        },
+        "mangleProps": {
+            "oneOf": [{
+                "type": "boolean",
+                "default": false
+            }, {
+                "title": "UglifyJS 3 Mangle Property Options",
+                "type": "object",
+                "properties": {
+                    "builtins": {
+                        "title": "Allow the mangling of builtin DOM properties.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "debug": {
+                        "title": "Mangle names with the original name still present.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "keep_quoted": {
+                        "title": "Only mangle unquoted property names.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "regex": {
+                        "title": "Pass a RegExp literal to only mangle property names matching the regular expression.",
+                        "oneOf": [{
+                            "type": "boolean",
+                            "default": false
+                        }, {
+                            "type": "string",
+                            "title": "Regular expression",
+                            "pattern": "^\/.*\/([a-z]+)?$",
+                            "default": ""
+                        }]
+                    },
+                    "reserved": {
+                        "title": "Do not mangle property names listed in the reserved array.",
+                        "oneOf": [{
+                            "type": "boolean"
+                        }, {
+                            "title": "Enter a JSON array with property names that should be excluded from mangling.",
+                            "type": "array",
+                            "items": {
+                                "title": "A property name.",
+                                "type": "string"
+                            },
+                            "placeholder": "[\"foo\",\"bar\"]",
+                            "uniqueItems": true,
+                            "default": []
+                        }],
+                        "default": false
+                    }
+                },
+                "additionalProperties": false
+            }]
+        },
+        "output": {
+            "oneOf": [{
+                "type": "boolean",
+                "enum": [false],
+                "default": false
+            }, {
+                "title": "UglifyJS 3 Output Options",
+                "type": "object",
+                "properties": {
+                    "ascii_only": {
+                        "title": "escape Unicode characters in strings and regexps (affects directives with non-ascii characters becoming invalid)",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "beautify": {
+                        "title": "whether to actually beautify the output. Passing -b will set this to true, but you might need to pass -b even when you want to generate minified code, in order to specify additional arguments, so you can use -b beautify=false to override it.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "bracketize": {
+                        "title": "always insert brackets in if, for, do, while or with statements, even if their body is a single statement.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "comments": {
+                        "title": "pass true or \"all\" to preserve all comments, \"some\" to preserve some comments, a regular expression string (e.g. /^!/) or a function.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "indent_level": {
+                        "title": "indent level",
+                        "oneOf": [{
+                            "type": "boolean",
+                            "default": false
+                        }, {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1000,
+                            "default": 4
+                        }]
+                    },
+                    "indent_start": {
+                        "title": "prefix all lines by that many spaces",
+                        "oneOf": [{
+                            "type": "boolean",
+                            "default": false
+                        }, {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1000,
+                            "default": 0
+                        }]
+                    },
+                    "inline_script": {
+                        "title": "escape the slash in occurrences of </script in strings",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "keep_quoted_props": {
+                        "title": "when turned on, prevents stripping quotes from property names in object literals.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "max_line_len": {
+                        "title": "maximum line length (for uglified code)",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "preamble": {
+                        "title": "A string to be prepended to the output literally.",
+                        "oneOf": [{
+                            "type": "boolean",
+                            "default": false
+                        }, {
+                            "type": "string",
+                            "title": "String to preamble.",
+                            "default": ""
+                        }]
+                    },
+                    "preserve_line": {
+                        "title": "pass true to preserve lines, but it only works if beautify is set to false.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "quote_keys": {
+                        "title": "pass true to quote all keys in literal objects",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "quote_style": {
+                        "title": "preferred quote style for strings (affects quoted property names and directives as well):",
+                        "oneOf": [{
+                            "type": "boolean",
+                            "default": true
+                        }, {
+                            "title": "Functions and variables.",
+                            "type": "string",
+                            "enum": [
+                                "0", "1", "2", "3"
+                            ],
+                            "default": "0"
+                        }]
+                    },
+                    "semicolons": {
+                        "title": "separate statements with semicolons. If you pass false then whenever possible we will use a newline instead of a semicolon, leading to more readable output of uglified code (size before gzip could be smaller; size after gzip insignificantly larger).",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "shebang": {
+                        "title": "preserve shebang #! in preamble (bash scripts)",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "webkit": {
+                        "title": "enable workarounds for WebKit bugs. PhantomJS users should set this option to true.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "width": {
+                        "title": "only takes effect when beautification is on, this specifies an (orientative) line width that the beautifier will try to obey. It refers to the width of the line text (excluding indentation). It doesn't work very well currently, but it does make the code generated by UglifyJS more readable.",
+                        "oneOf": [{
+                            "type": "boolean",
+                            "default": false
+                        }, {
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 80
+                        }]
+                    },
+                    "wrap_iife": {
+                        "title": "pass true to wrap immediately invoked function expressions. See #640 for more details.",
+                        "type": "boolean",
+                        "default": true
+                    }
+                },
+                "additionalProperties": false
+            }]
+        }
+    },
+    "additionalProperties": false
+}

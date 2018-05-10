@@ -1,0 +1,219 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-lint.json",
+    "title": "CSSLint Ruleset",
+    "description": "Schema for CSSLint Ruleset JSON.",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "title": "Possible Errors",
+            "description": "Rules for potential errors in the CSS.",
+            "type": "object",
+            "properties": {
+                "box-model": {
+                    "title": "Beware of box model size",
+                    "type": "boolean",
+                    "default": true
+                },
+                "display-property-grouping": {
+                    "title": "Require properties appropriate for display",
+                    "type": "boolean",
+                    "default": true
+                },
+                "duplicate-properties": {
+                    "title": "Disallow duplicate properties",
+                    "type": "boolean",
+                    "default": true
+                },
+                "empty-rules": {
+                    "title": "Disallow empty rules",
+                    "type": "boolean",
+                    "default": true
+                },
+                "known-properties": {
+                    "title": "Require use of known properties",
+                    "type": "boolean",
+                    "default": true
+                }
+            },
+            "additionalProperties": false
+        },
+        "compatibility": {
+            "title": "Compatibility",
+            "description": "Rules flag for compatibility problems across browsers and browser settings.",
+            "type": "object",
+            "properties": {
+                "adjoining-classes": {
+                    "title": "Disallow adjoining classes",
+                    "type": "boolean",
+                    "default": false
+                },
+                "box-sizing": {
+                    "title": "Disallow box-sizing",
+                    "type": "boolean",
+                    "default": false
+                },
+                "compatible-vendor-prefixes": {
+                    "title": "Require compatible vendor prefixes",
+                    "type": "boolean",
+                    "default": false
+                },
+                "gradients": {
+                    "title": "Require all gradient definitions",
+                    "type": "boolean",
+                    "default": false
+                },
+                "text-indent": {
+                    "title": "Disallow negative text-indent",
+                    "type": "boolean",
+                    "default": false
+                },
+                "vendor-prefix": {
+                    "title": "Require standard property with vendor prefix",
+                    "type": "boolean",
+                    "default": false
+                },
+                "fallback-colors": {
+                    "title": "Require fallback colors",
+                    "type": "boolean",
+                    "default": false
+                },
+                "star-property-hack": {
+                    "title": "Disallow star hack",
+                    "type": "boolean",
+                    "default": false
+                },
+                "underscore-property-hack": {
+                    "title": "Disallow underscore hack",
+                    "type": "boolean",
+                    "default": false
+                },
+                "bulletproof-font-face": {
+                    "title": "Bulletproof font-face",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "performance": {
+            "title": "Performance",
+            "description": "Rules are aimed at improving CSS performance, including runtime performance and overall code size.",
+            "type": "object",
+            "properties": {
+                "font-faces": {
+                    "title": "Don't use too many web fonts",
+                    "type": "boolean",
+                    "default": false
+                },
+                "import": {
+                    "title": "Disallow @import",
+                    "type": "boolean",
+                    "default": false
+                },
+                "regex-selectors": {
+                    "title": "Disallow selectors that look like regular expressions",
+                    "type": "boolean",
+                    "default": false
+                },
+                "universal-selector": {
+                    "title": "Disallow universal selector",
+                    "type": "boolean",
+                    "default": false
+                },
+                "unqualified-attributes": {
+                    "title": "Disallow unqualified attribute selectors",
+                    "type": "boolean",
+                    "default": false
+                },
+                "zero-units": {
+                    "title": "Disallow units for zero values",
+                    "type": "boolean",
+                    "default": false
+                },
+                "overqualified-elements": {
+                    "title": "Disallow overqualified elements",
+                    "type": "boolean",
+                    "default": false
+                },
+                "shorthand": {
+                    "title": "Require shorthand properties",
+                    "type": "boolean",
+                    "default": false
+                },
+                "duplicate-background-images": {
+                    "title": "Disallow duplicate background images",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "maintainability": {
+            "title": "Maintainability & Duplication",
+            "description": "Rules help to ensure your code is readable and maintainable by others.",
+            "type": "object",
+            "properties": {
+                "floats": {
+                    "title": "Disallow too many floats",
+                    "type": "boolean",
+                    "default": false
+                },
+                "font-sizes": {
+                    "title": "Don't use too many font-size declarations",
+                    "type": "boolean",
+                    "default": false
+                },
+                "ids": {
+                    "title": "Disallow IDs in selectors",
+                    "type": "boolean",
+                    "default": false
+                },
+                "important": {
+                    "title": "Disallow !important",
+                    "type": "boolean",
+                    "default": false
+                },
+                "order-alphabetical": {
+                    "title": "Disallow non alphabetical",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "accessibility": {
+            "title": "Accessibility",
+            "description": "Rules are designed to pick out possible accessibility issues.",
+            "type": "object",
+            "properties": {
+
+                "outline-none": {
+                    "title": "Disallow outline:none",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "oocss": {
+            "title": "OOCSS",
+            "description": "Rules are based on the principles of OOCSS.",
+            "type": "object",
+            "properties": {
+                "qualified-headings": {
+                    "title": "Disallow qualified headings",
+                    "type": "boolean",
+                    "default": false
+                },
+                "unique-headings": {
+                    "title": "Headings should only be defined once",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}

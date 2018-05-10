@@ -1,0 +1,78 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "js-closure-compiler.json",
+    "title": "Google Closure Compiler Options",
+    "description": "Schema for Google Closure Compiler Options JSON.",
+    "type": "object",
+    "properties": {
+        "compilation_level": {
+            "title": "Compilation Level",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "level": {
+                    "title": "Closure Compiler lets you choose from three levels of compilation, ranging from simple removal of whitespace and comments to aggressive code transformations.",
+                    "type": "string",
+                    "enum": ["WHITESPACE_ONLY", "SIMPLE_OPTIMIZATIONS", "ADVANCED_OPTIMIZATIONS"],
+                    "default": "SIMPLE_OPTIMIZATIONS"
+                }
+            },
+            "additionalProperties": false
+        },
+        "externs_files": {
+            "title": "Use externs_url to preserve symbols that are defined outside of the code you are compiling. <a href=\"https://developers.google.com/closure/compiler/docs/api-tutorial3#externs\" target=\"_blank\"><span class=\"dashicons dashicons-editor-help\"></span></a>",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "files": {
+                    "title": "Enter a JSON array with externs URLs.",
+                    "type": "array",
+                    "items": {
+                        "title": "A path to a externs file.",
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "placeholder": "[\"https://yourdomain.com/path/to/myscript-externs.js\"]",
+                    "uniqueItems": true,
+                    "default": []
+                }
+            },
+            "additionalProperties": false
+        },
+        "exclude_default_externs": {
+            "title": "Exclude default Closure Compiler externs.",
+            "type": "boolean",
+            "default": false
+        },
+        "formatting": {
+            "title": "Code formatting",
+            "title": "Format or pretty print the code.",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "format": {
+                    "title": "Closure Compiler offers several code formatting options.",
+                    "type": "string",
+                    "enum": ["pretty_print", "print_input_delimiter"],
+                    "default": "pretty_print"
+                }
+            },
+            "additionalProperties": false
+        },
+        "use_closure_library": {
+            "title": "The compiler looks for goog.require() statements in the source code and supplies the Closure Library code requested by any such statements.",
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "additionalProperties": false
+}

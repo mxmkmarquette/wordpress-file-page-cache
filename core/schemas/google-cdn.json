@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "google-cdn.json",
+    "title": "Google CDN Page Cache Configuration",
+    "description": "Schema for Google CDN Page Cache Configuration JSON.",
+
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "title": "Enable Google CDN Page Cache",
+            "type": "boolean",
+            "default": false
+        },
+        "host": {
+            "title": "Public host",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^/]+$"
+        },
+        "max_age": {
+            "title": "Default expire age",
+            "oneOf": [{
+                "type": "string",
+                "enum": [""]
+            }, {
+                "type": "number"
+            }]
+
+        }
+    },
+    "required": ["enabled"],
+    "additionalProperties": false
+}

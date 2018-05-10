@@ -1,0 +1,319 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "js-minify.json",
+    "title": "Javascript Minify Optimization Configuration",
+    "description": "Schema for Javascript Minify Optimization Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "title": "CSS Minify",
+            "type": "boolean",
+            "default": false
+        },
+        "minifier": {
+            "$ref": "js-minify.json#/definitions/minifiers"
+        },
+        "closure-compiler-service": {
+            "title": "Closure Compiler Service config",
+            "type": "object",
+            "properties": {
+                "options": {
+                    "$ref": "js-closure-compiler.json#"
+                }
+            },
+            "additionalProperties": false
+        },
+        "fallback": {
+            "$ref": "js-minify.json#/definitions/fallback_minifier"
+        },
+        "comments": {
+            "title": "Comment related optimization",
+            "type": "object",
+            "properties": {
+                "remove_important": {
+                    "title": "Remove important comments (/*!)",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "title": "Remove important comments (/*!)",
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "filter": {
+            "title": "Javascript Minification Filter",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Filter scripts to minify",
+                    "type": "boolean",
+                    "default": false
+                },
+                "type": {
+                    "title": "Filter List Type",
+                    "type": "string",
+                    "enum": [
+                        "include",
+                        "exclude"
+                    ],
+                    "default": "include"
+                },
+                "include": {
+                    "type": "array",
+                    "items": {
+                        "title": "Scripts to include.",
+                        "type": "string"
+                    },
+                    "uniqueItems": true
+                },
+                "exclude": {
+                    "type": "array",
+                    "items": {
+                        "title": "Scripts to exclude.",
+                        "type": "string"
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "additionalProperties": false
+        },
+        "concat": {
+            "title": "Concatenate scripts",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Script Concat",
+                    "type": "boolean",
+                    "default": false
+                },
+                "minify": {
+                    "title": "Use minifier for concatenation.",
+                    "type": "boolean",
+                    "default": true
+                },
+                "trycatch": {
+                    "title": "Wrap scripts in try {} catch(e) {}",
+                    "type": "boolean",
+                    "default": false
+                },
+                "filter": {
+                    "title": "Concatenation groups",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "title": "Script Concat",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "type": {
+                            "title": "Default include/exclude",
+                            "type": "string",
+                            "enum": [
+                                "include",
+                                "exclude"
+                            ],
+                            "default": "include"
+                        },
+                        "config": {
+                            "title": "Concatenation group filter",
+                            "type": "array",
+                            "items": {
+                                "title": "Script merge group configuration",
+                                "type": "object",
+                                "properties": {
+                                    "group": {
+                                        "title": "Concat group configuration",
+                                        "type": "object",
+                                        "properties": {
+                                            "title": {
+                                                "title": "A title for the group",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "key": {
+                                                "title": "A group reference key used in the file path.",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "id": {
+                                                "title": "An id attribute for the stylesheet element.",
+                                                "type": "string",
+                                                "minLength": 1
+                                            }
+                                        },
+                                        "required": ["title", "key"],
+                                        "additionalProperties": false
+                                    },
+                                    "match": {
+                                        "title": "An array of strings to match script elements.",
+                                        "type": "array",
+                                        "items": {
+                                            "oneOf": [{
+                                                "title": "A string to match a script element.",
+                                                "type": "string",
+                                                "minLength": 1
+                                            }, {
+                                                "title": "Filter config object",
+                                                "type": "object",
+                                                "properties": {
+                                                    "string": {
+                                                        "title": "A string to match a script element.",
+                                                        "type": "string",
+                                                        "minLength": 1
+                                                    },
+                                                    "regex": {
+                                                        "type": "boolean",
+                                                        "enum": [true]
+                                                    },
+                                                    "exclude": {
+                                                        "type": "boolean",
+                                                        "enum": [true]
+                                                    }
+                                                },
+                                                "required": ["string"],
+                                                "additionalProperties": false
+                                            }]
+
+                                        },
+                                        "uniqueItems": true
+                                    },
+                                    "minify": {
+                                        "title": "Use minifier for concatenation.",
+                                        "type": "boolean",
+                                        "default": true
+                                    },
+                                    "minifier": {
+                                        "$ref": "js-minify.json#/definitions/minifiers"
+                                    },
+                                    "fallback_minifier": {
+                                        "$ref": "js-minify.json#/definitions/fallback_minifier"
+                                    },
+                                    "dependency": {
+                                        "title": "Dependency configuration",
+                                        "oneOf": [{
+                                            "title": "A string to match a script URL or contact group key.",
+                                            "type": "string",
+                                            "minLength": 1
+                                        }, {
+                                            "title": "An array of script URLs or contact group keys.",
+                                            "type": "array",
+                                            "items": {
+                                                "title": "A string to match a script URL or contact group key.",
+                                                "type": "string"
+                                            },
+                                            "uniqueItems": true
+                                        }]
+                                    },
+                                    "exclude": {
+                                        "title": "Exclude from concatenation",
+                                        "type": "boolean",
+                                        "enum": [true]
+                                    }
+                                },
+                                "required": ["match"],
+                                "additionalProperties": false
+                            },
+                            "uniqueItems": true
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "inline": {
+                    "title": "Merge inline scripts.",
+                    "oneOf": [{
+                        "type": "boolean"
+                    }, {
+                        "type": "object",
+                        "properties": {
+                            "enabled": {
+                                "title": "Merge inline scripts",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "filter": {
+                                "title": "Inline Concat Filter",
+                                "type": "object",
+                                "properties": {
+                                    "enabled": {
+                                        "title": "Filter inline CSS to concat",
+                                        "type": "boolean",
+                                        "default": false
+                                    },
+                                    "type": {
+                                        "title": "Filter List Type",
+                                        "type": "string",
+                                        "enum": [
+                                            "include",
+                                            "exclude"
+                                        ],
+                                        "default": "include"
+                                    },
+                                    "include": {
+                                        "type": "array",
+                                        "items": {
+                                            "title": "Inline CSS to include.",
+                                            "type": "string"
+                                        },
+                                        "uniqueItems": true
+                                    },
+                                    "exclude": {
+                                        "type": "array",
+                                        "items": {
+                                            "title": "Inline CSS to exclude.",
+                                            "type": "string"
+                                        },
+                                        "uniqueItems": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        },
+                        "additionalProperties": false
+                    }],
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false,
+
+    "definitions": {
+        "minifiers": {
+            "title": "Minifier to use for minification",
+            "type": "string",
+            "enum": [
+                "jsmin",
+                "jshrink",
+                "closure-compiler-service",
+                "custom"
+            ],
+            "default": "cssmin"
+        },
+        "fallback_minifier": {
+            "title": "Minifier to use for minification",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Merge inline scripts",
+                    "type": "boolean",
+                    "default": false
+                },
+                "minifier": {
+                    "$ref": "js-minify.json#/definitions/minifiers"
+                },
+                "timeout": {
+                    "title": "Timeout before fallback is used.",
+                    "type": "number",
+                    "minimum": 1
+                }
+            },
+            "additionalProperties": false
+        }
+    }
+}

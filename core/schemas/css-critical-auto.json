@@ -1,0 +1,130 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-critical-auto.json",
+    "title": "Automated critical CSS options",
+    "description": "Automated critical CSS options",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "priority": {
+            "title": "Priority of critical CSS file order.",
+            "type": "number",
+            "default": 1
+        },
+        "pages": {
+            "title": "Source HTML pages.",
+            "type": "array",
+            "items": {
+                "oneOf": [{
+                    "title": "URL based HTML source.",
+                    "type": "object",
+                    "allOf": [{
+                        "properties": {
+                            "url": {
+                                "type": "string",
+                                "format": "uri",
+                                "minLength": 1
+                            },
+                            "cache_expire": {
+                                "title": "Download cache expire time.",
+                                "type": "number",
+                                "minimum": 0,
+                                "default": 86400
+                            }
+                        },
+                        "required": ["url"]
+                    }, {
+                        "$ref": "css-critical-auto.json#/definitions/pageConfig"
+                    }],
+                    "additionalProperties": false
+                }, {
+                    "title": "File based HTML source.",
+                    "type": "object",
+                    "allOf": [{
+                        "properties": {
+                            "file": {
+                                "type": "string",
+                                "minLength": 1
+                            }
+                        },
+                        "required": ["file"]
+                    }, {
+                        "$ref": "css-critical-auto.json#/definitions/pageConfig"
+                    }],
+                    "additionalProperties": false
+                }, {
+                    "title": "Request based HTML source.",
+                    "type": "object",
+                    "allOf": [{
+                        "properties": {
+                            "match": {
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "regex": {
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "pool_size": {
+                                "title": "Pool size",
+                                "type": "number",
+                                "minimum": 1,
+                                "default": 1
+                            }
+                        },
+                        "required": ["match"]
+                    }, {
+                        "$ref": "css-critical-auto.json#/definitions/pageConfig"
+                    }],
+                    "additionalProperties": false
+                }]
+            },
+            "uniqueItems": true
+        },
+        "css": {
+            "title": "Source CSS files.",
+            "type": "array",
+            "items": {
+                "title": "Media queries to include.",
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "penthouse": {
+            "$ref": "css-critical-penthouse.json#"
+        }
+    },
+    "additionalProperties": false,
+    "definitions": {
+        "pageConfig": {
+            "type": "object",
+            "properties": {
+                "dimension": {
+                    "title": "Responsive dimension",
+                    "type": "object",
+                    "properties": {
+                        "width": {
+                            "type": "number",
+                            "minimum": 320,
+                            "maximum": 4096
+                        },
+                        "height": {
+                            "type": "number",
+                            "minimum": 320,
+                            "maximum": 2160
+                        }
+                    }
+                },
+                "user_agent": {
+                    "title": "User agent to use for loading the page.",
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "required": ["dimension"]
+        }
+    }
+}

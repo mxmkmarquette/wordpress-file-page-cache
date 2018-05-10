@@ -1,0 +1,1 @@
+var Pb=m.matchMedia||m.msMatchMedia,W={};function Fa(a){if(!Pb||!a)return!0;a in W||(W[a]=Pb(a));return W[a]}function Ha(a,c,b){function d(f){f.matches?(b||W[a].removeListener(d),e||(e=!0,c())):f.matches||(b&&!0===e&&b(),e=!1)}var e=!Pb||!a||Fa(a).matches;e&&c();b&&W&&a in W&&W[a].addListener(d)}A.media=Ha;

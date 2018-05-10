@@ -1,0 +1,133 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-yui.json",
+    "title": "YUI Compressor Options",
+    "description": "Schema for YUI Compressor Options JSON.",
+    "type": "object",
+    "properties": {
+        "options": {
+            "title": "YUI Options",
+            "type": "object",
+            "properties": {
+                "keepSourceMapComment": {
+                    "title": "Sets whether to keep sourcemap comment in the output.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "removeImportantComments": {
+                    "title": "Sets whether to remove important comments from output.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "setLinebreakPosition": {
+                    "title": "Some source control tools don't like it when files containing lines longer than, say 8000 characters, are checked in. The linebreak option is used in that case to split long lines after a specific column.",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "position": {
+                            "title": "Line break position.",
+                            "oneOf": [{
+                                "type": "string",
+                                "enum": [""]
+                            }, {
+                                "type": "number",
+                                "minimum": 1
+                            }]
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "setMaxExecutionTime": {
+                    "title": "Sets the PHP <code>max_execution_time</code> configuration option.",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "value": {
+                            "title": "Time in seconds to allow minifier to complete.",
+                            "oneOf": [{
+                                "type": "string",
+                                "enum": [""]
+                            }, {
+                                "type": "number",
+                                "minimum": 1,
+                                "placeholder": "Default is 60 seconds"
+                            }],
+                            "default": 60
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "setMemoryLimit": {
+                    "title": "Sets the PHP <code>memory_limit</code> configuration option.",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "value": {
+                            "title": "PHP memoery limit in MB.",
+                            "type": "string",
+                            "pattern": "^[0-9]+(M|G)$",
+                            "placeholder": "Default is 128M",
+                            "default": "128M"
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "setPcreBacktrackLimit": {
+                    "title": "Sets the <code>pcre.backtrack_limit</code> configuration option.",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "value": {
+                            "oneOf": [{
+                                "type": "string",
+                                "enum": [""]
+                            }, {
+                                "type": "number",
+                                "minimum": 1,
+                                "placeholder": "Default is 1000000"
+                            }],
+                            "default": 1000000
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "setPcreRecursionLimit": {
+                    "title": "Sets the <code>pcre.recursion_limit</code> configuration option.",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "value": {
+                            "oneOf": [{
+                                "type": "string",
+                                "enum": [""]
+                            }, {
+                                "type": "number",
+                                "minimum": 1,
+                                "placeholder": "Default is 500000"
+                            }],
+                            "default": 500000
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}

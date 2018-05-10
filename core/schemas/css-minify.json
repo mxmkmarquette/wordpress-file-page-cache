@@ -1,0 +1,423 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-minify.json",
+    "title": "CSS Minify Optimization Configuration",
+    "description": "Schema for CSS Minify Optimization Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "title": "CSS Minify",
+            "type": "boolean",
+            "default": false
+        },
+        "minifier": {
+            "$ref": "css-minify.json#/definitions/minifiers"
+        },
+        "cssmin": {
+            "$ref": "css-cssmin.json#"
+        },
+        "yui": {
+            "$ref": "css-yui.json#"
+        },
+        "rebase": {
+            "title": "Rebase relative URIs in CSS",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Rebase relative URIs in CSS",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "ignore_errors": {
+            "title": "Ignore CSS parser errors",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Ignore CssMin.php errors",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "import": {
+            "title": "Process @import links",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Process @import",
+                    "type": "boolean",
+                    "default": false
+                },
+                "filter": {
+                    "title": "@import Filter",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "title": "Filter stylesheets to import",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "type": {
+                            "title": "Filter List Type",
+                            "type": "string",
+                            "enum": [
+                                "include",
+                                "exclude"
+                            ],
+                            "default": "include"
+                        },
+                        "include": {
+                            "type": "array",
+                            "items": {
+                                "title": "Stylesheets to include.",
+                                "type": "string"
+                            },
+                            "uniqueItems": true
+                        },
+                        "exclude": {
+                            "type": "array",
+                            "items": {
+                                "title": "Stylesheets to exclude.",
+                                "type": "string"
+                            },
+                            "uniqueItems": true
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "filter": {
+            "title": "CSS Minification Filter",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Filter stylesheets to minify",
+                    "type": "boolean",
+                    "default": false
+                },
+                "type": {
+                    "title": "Filter List Type",
+                    "type": "string",
+                    "enum": [
+                        "include",
+                        "exclude"
+                    ],
+                    "default": "include"
+                },
+                "include": {
+                    "type": "array",
+                    "items": {
+                        "title": "Stylesheets to include.",
+                        "type": "string"
+                    },
+                    "uniqueItems": true
+                },
+                "exclude": {
+                    "type": "array",
+                    "items": {
+                        "title": "Stylesheets to exclude.",
+                        "type": "string"
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "additionalProperties": false
+        },
+        "concat": {
+            "title": "Concatenate CSS files",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "CSS Concat",
+                    "type": "boolean",
+                    "default": false
+                },
+                "minify": {
+                    "title": "Use minifier for concatenation.",
+                    "type": "boolean",
+                    "default": true
+                },
+                "filter": {
+                    "title": "Concatenation filter",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "title": "CSS Concat",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "type": {
+                            "title": "Default include/exclude",
+                            "type": "string",
+                            "enum": [
+                                "include",
+                                "exclude"
+                            ],
+                            "default": "include"
+                        },
+                        "config": {
+                            "title": "Concatenation filter config",
+                            "type": "array",
+                            "items": {
+                                "title": "Concatenation filter configuration",
+                                "type": "object",
+                                "properties": {
+                                    "group": {
+                                        "title": "Concat group configuration",
+                                        "type": "object",
+                                        "properties": {
+                                            "title": {
+                                                "title": "A title for the group",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "key": {
+                                                "title": "A group reference key used in the file path.",
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            "id": {
+                                                "title": "An id attribute for the stylesheet element.",
+                                                "type": "string",
+                                                "minLength": 1
+                                            }
+                                        },
+                                        "required": ["title", "key"],
+                                        "additionalProperties": false
+                                    },
+                                    "match": {
+                                        "title": "An array of strings to match script elements.",
+                                        "type": "array",
+                                        "items": {
+                                            "oneOf": [{
+                                                "title": "A string to match a script element.",
+                                                "type": "string",
+                                                "minLength": 1
+                                            }, {
+                                                "title": "Filter config object",
+                                                "type": "object",
+                                                "properties": {
+                                                    "string": {
+                                                        "title": "A string to match a script element.",
+                                                        "type": "string",
+                                                        "minLength": 1
+                                                    },
+                                                    "regex": {
+                                                        "type": "boolean",
+                                                        "enum": [true]
+                                                    },
+                                                    "exclude": {
+                                                        "type": "boolean",
+                                                        "enum": [true]
+                                                    }
+                                                },
+                                                "required": ["string"],
+                                                "additionalProperties": false
+                                            }]
+
+                                        },
+                                        "uniqueItems": true
+                                    },
+                                    "minify": {
+                                        "title": "Use minifier for concatenation.",
+                                        "type": "boolean",
+                                        "default": true
+                                    },
+                                    "minifier": {
+                                        "$ref": "css-minify.json#/definitions/minifiers"
+                                    },
+                                    "exclude": {
+                                        "title": "Exclude from concatenation",
+                                        "type": "boolean",
+                                        "enum": [true]
+                                    }
+                                },
+                                "required": ["match"],
+                                "additionalProperties": false
+                            },
+                            "uniqueItems": true
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "inline": {
+                    "title": "Merge inline styles.",
+                    "oneOf": [{
+                        "type": "boolean"
+                    }, {
+                        "type": "object",
+                        "properties": {
+                            "enabled": {
+                                "title": "Merge inline styles",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "filter": {
+                                "title": "Inline Concat Filter",
+                                "type": "object",
+                                "properties": {
+                                    "enabled": {
+                                        "title": "Filter inline CSS to concat",
+                                        "type": "boolean",
+                                        "default": false
+                                    },
+                                    "type": {
+                                        "title": "Filter List Type",
+                                        "type": "string",
+                                        "enum": [
+                                            "include",
+                                            "exclude"
+                                        ],
+                                        "default": "include"
+                                    },
+                                    "include": {
+                                        "type": "array",
+                                        "items": {
+                                            "title": "Inline CSS to include.",
+                                            "type": "string"
+                                        },
+                                        "uniqueItems": true
+                                    },
+                                    "exclude": {
+                                        "type": "array",
+                                        "items": {
+                                            "title": "Inline CSS to exclude.",
+                                            "type": "string"
+                                        },
+                                        "uniqueItems": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        },
+                        "additionalProperties": false
+                    }],
+                    "default": false
+                },
+                "mediaqueries": {
+                    "title": "Merge CSS files with different media queries.",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "title": "CSS Media Query Concat",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "filter": {
+                            "title": "CSS Media Query Concat Filter",
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "title": "Filter media queries to concat",
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "type": {
+                                    "title": "Filter List Type",
+                                    "type": "string",
+                                    "enum": [
+                                        "include",
+                                        "exclude"
+                                    ],
+                                    "default": "include"
+                                },
+                                "include": {
+                                    "type": "array",
+                                    "items": {
+                                        "title": "Media queries to include.",
+                                        "type": "string"
+                                    },
+                                    "uniqueItems": true
+                                },
+                                "exclude": {
+                                    "type": "array",
+                                    "items": {
+                                        "title": "Media queries to exclude.",
+                                        "type": "string"
+                                    },
+                                    "uniqueItems": true
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "inline_assets": {
+            "title": "Inline assets using CSS data-URI.",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "config": {
+                        "type": "object",
+                        "properties": {
+                            "maxSize": {
+                                "title": "Specify the maximum file size to inline (in kbytes).",
+                                "oneOf": [{
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                }, {
+                                    "type": "number",
+                                    "default": 14
+                                }],
+                                "default": false
+                            },
+                            "filter": {
+                                "title": "Array of regex'es to determine wheter a file should be inlined.",
+                                "oneOf": [{
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                }, {
+                                    "title": "Enter a JSON array with regex paterns.",
+                                    "type": "array",
+                                    "items": {
+                                        "title": "A regex string.",
+                                        "type": "string"
+                                    },
+                                    "uniqueItems": true,
+                                    "default": []
+                                }],
+                                "default": false
+                            }
+                        }
+                    }
+                },
+                "additionalProperties": false
+            }]
+        }
+    },
+    "additionalProperties": false,
+
+    "definitions": {
+        "minifiers": {
+            "title": "Minifier to use for minification",
+            "type": "string",
+            "enum": [
+                "cssmin",
+                "yui",
+                "regex",
+                "custom"
+            ],
+            "default": "cssmin"
+        }
+    }
+}

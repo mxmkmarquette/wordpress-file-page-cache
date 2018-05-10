@@ -1,0 +1,173 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "timed-exec.json",
+    "title": "Timed Exec Definitions",
+    "description": "Schema for Timed Exec definition JSON.",
+    "type": "object",
+
+    "definitions": {
+        "timingMethods": {
+            "title": "Timing configuration",
+            "oneOf": [{
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "title": "Timing method",
+                        "type": "string",
+                        "enum": [
+                            "domReady"
+                        ],
+                        "default": "domReady"
+                    }
+                },
+                "required": ["type"]
+            }, {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "title": "Timing method",
+                        "type": "string",
+                        "enum": [
+                            "requestIdleCallback"
+                        ],
+                        "default": "requestIdleCallback"
+                    },
+                    "timeout": {
+                        "title": "Timeout to force execution.",
+                        "oneOf": [{
+                            "type": "string",
+                            "enum": [""]
+                        }, {
+                            "type": "number",
+                            "minimum": 1
+                        }]
+                    },
+                    "setTimeout": {
+                        "title": "setTimeout fallback for browsers that do not support requestIdleCallback (leave blank to disable async execution)",
+                        "oneOf": [{
+                            "type": "string",
+                            "enum": [""]
+                        }, {
+                            "type": "number",
+                            "minimum": 1
+                        }]
+                    }
+                },
+                "required": ["type"]
+            }, {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "title": "Timing method",
+                        "type": "string",
+                        "enum": [
+                            "requestAnimationFrame"
+                        ],
+                        "default": "requestAnimationFrame"
+                    },
+                    "frame": {
+                        "title": "Frame number to start script execution.",
+                        "oneOf": [{
+                            "type": "string",
+                            "enum": [""]
+                        }, {
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 1
+                        }]
+                    }
+                },
+                "required": ["type"]
+            }, {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "title": "Timing method",
+                        "type": "string",
+                        "enum": [
+                            "inview"
+                        ],
+                        "default": "inview"
+                    },
+                    "selector": {
+                        "title": "CSS selector",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "offset": {
+                        "title": "Offset in pixels from the edge of the element.",
+                        "oneOf": [{
+                            "type": "string",
+                            "enum": [""]
+                        }, {
+                            "type": "number"
+                        }]
+                    }
+                },
+                "required": ["type", "selector"]
+            }, {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "title": "Timing method",
+                        "type": "string",
+                        "enum": [
+                            "media"
+                        ],
+                        "default": "media"
+                    },
+                    "media": {
+                        "title": "Media query",
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "required": ["type", "media"]
+            }]
+        },
+        "execTiming": {
+            "title": "Timed exec config",
+            "oneOf": [{
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "title": "Timed exec config",
+                        "type": "boolean",
+                        "enum": [false]
+                    },
+                    "type": {},
+                    "frame": {},
+                    "timeout": {},
+                    "setTimeout": {},
+                    "selector": {},
+                    "offset": {},
+                    "media": {}
+                },
+                "required": ["enabled"],
+                "additionalProperties": false
+            }, {
+                "allOf": [{
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "title": "Timed exec config",
+                            "type": "boolean",
+                            "enum": [true]
+                        },
+                        "type": {},
+                        "frame": {},
+                    "timeout": {},
+                    "setTimeout": {},
+                        "selector": {},
+                        "offset": {},
+                        "media": {}
+                    },
+                    "required": ["enabled", "type"],
+                    "additionalProperties": false
+                }, {
+                    "$ref": "timed-exec.json#/definitions/timingMethods"
+                }]
+            }]
+        }
+    }
+}

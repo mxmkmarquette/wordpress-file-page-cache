@@ -1,0 +1,362 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "js-async.json",
+    "title": "Javascript Async Optimization Configuration",
+    "description": "Schema for Javascript Async Optimization Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "title": "Async loading",
+            "type": "boolean",
+            "default": false
+        },
+        "rel_preload": {
+            "title": "Load scripts using rel=preload",
+            "type": "boolean",
+            "default": false
+        },
+        "load_position": {
+            "title": "Load position of scripts",
+            "type": "string",
+            "enum": ["header", "footer", "timing"],
+            "default": "header"
+        },
+        "load_timing": {
+            "$ref": "timed-exec.json#/definitions/timingMethods"
+        },
+        "exec_timing": {
+            "$ref": "timed-exec.json#/definitions/execTiming"
+        },
+        "jQuery_stub": {
+            "title": "Include jQuery stub to load jQuery async while supporting inline jQuery scripts.",
+            "type": "boolean",
+            "default": false
+        },
+        "responsive": {
+            "title": "Responsive script loading on view or based on media queries.",
+            "type": "boolean",
+            "default": true
+        },
+        "exec": {
+            "title": "Async execution of javascript.",
+            "oneOf": [{
+                "type": "boolean",
+                "enum": [false]
+            }, {
+                "allOf": [{
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "title": "Exec scripts async.",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "type": {},
+                        "frame": {},
+                        "timeout": {},
+                        "setTimeout": {},
+                        "selector": {},
+                        "offset": {},
+                        "media": {}
+                    },
+                    "required": ["enabled", "type"],
+                    "additionalProperties": false
+                }, {
+                    "$ref": "js-async.json#/definitions/asyncExec"
+                }]
+            }]
+        },
+        "filter": {
+            "title": "Async Filter",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Filter scripts to load async",
+                    "type": "boolean",
+                    "default": false
+                },
+                "type": {
+                    "title": "Default include/exclude",
+                    "type": "string",
+                    "enum": [
+                        "include",
+                        "exclude"
+                    ],
+                    "default": "include"
+                },
+                "config": {
+                    "type": "array",
+                    "items": {
+                        "title": "Script filter configuration",
+                        "type": "object",
+                        "properties": {
+                            "match": {
+                                "title": "A string or regular expression to match a script URL or group key.",
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "regex": {
+                                "title": "Use regular expression match",
+                                "type": "boolean",
+                                "enum": [
+                                    true
+                                ]
+                            },
+                            "async": {
+                                "title": "Load script async (include/exclude)",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "minify": {
+                                "title": "Minify script",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "minifier": {
+                                "$ref": "js-minify.json#/definitions/minifiers"
+                            },
+                            "fallback_minifier": {
+                                "$ref": "js-minify.json#/definitions/fallback_minifier"
+                            },
+                            "rel_preload": {
+                                "title": "Load script using rel=preload",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "load_position": {
+                                "title": "Load position of scripts",
+                                "type": "string",
+                                "enum": ["header", "footer", "timing"],
+                                "default": "header"
+                            },
+                            "load_timing": {
+                                "$ref": "timed-exec.json#/definitions/timingMethods"
+                            },
+                            "exec_timing": {
+                                "$ref": "timed-exec.json#/definitions/timingMethods"
+                            },
+                            "dependency": {
+                                "title": "Dependency configuration",
+                                "oneOf": [{
+                                    "title": "A string to match a script URL or contact group key.",
+                                    "type": "string",
+                                    "minLength": 1
+                                }, {
+                                    "title": "An array of script URLs or contact group keys.",
+                                    "type": "array",
+                                    "items": {
+                                        "title": "A string to match a script URL or contact group key.",
+                                        "type": "string"
+                                    },
+                                    "uniqueItems": true
+                                }]
+                            },
+                            "localStorage": {
+                                "title": "Override script cache configuration",
+                                "oneOf": [{
+                                    "type": "boolean"
+                                }, {
+                                    "type": "object",
+                                    "properties": {
+                                        "max_size": {
+                                            "title": "Maximum size of script to store in cache.",
+                                            "type": "number",
+                                            "minimum": 1
+                                        },
+                                        "update_interval": {
+                                            "title": "Interval to update the cache.",
+                                            "type": "number",
+                                            "minimum": 1
+                                        },
+                                        "expire": {
+                                            "title": "Expire time in seconds.",
+                                            "type": "number",
+                                            "minimum": 1
+                                        },
+                                        "head_update": {
+                                            "title": "Use HTTP HEAD request to update cache based on etag / last-modified headers.",
+                                            "type": "boolean",
+                                            "default": true
+                                        }
+                                    },
+                                    "anyOf": [{
+                                        "required": ["max_size"]
+                                    }, {
+                                        "required": ["update_interval"]
+                                    }, {
+                                        "required": ["expire"]
+                                    }, {
+                                        "required": ["head_update"]
+                                    }],
+                                    "additionalProperties": false
+                                }]
+                            }
+                        },
+                        "required": ["match", "async"],
+                        "additionalProperties": false
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "required": ["enabled", "type"],
+            "additionalProperties": false
+        },
+        "localStorage": {
+            "title": "HTML5 localStorage cache",
+            "oneOf": [{
+                "type": "boolean"
+            }, {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "title": "Cache scripts with localStorage.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "max_size": {
+                        "title": "Maximum size of script to store in cache.",
+                        "oneOf": [{
+                            "type": "string",
+                            "enum": [""]
+                        }, {
+                            "type": "number",
+                            "minimum": 1
+                        }],
+                        "default": 1048576
+                    },
+                    "update_interval": {
+                        "title": "Interval to update the cache.",
+                        "oneOf": [{
+                            "type": "string",
+                            "enum": [""]
+                        }, {
+                            "type": "number",
+                            "minimum": 1
+                        }],
+                        "default": ""
+                    },
+                    "expire": {
+                        "title": "Expire time in seconds.",
+                        "oneOf": [{
+                            "type": "string",
+                            "enum": [""]
+                        }, {
+                            "type": "number",
+                            "minimum": 1
+                        }],
+                        "default": 86400
+                    },
+                    "head_update": {
+                        "title": "Use HTTP HEAD request to update cache based on etag / last-modified headers.",
+                        "type": "boolean",
+                        "default": true
+                    }
+                },
+                "required": ["enabled"],
+                "additionalProperties": false
+            }]
+        }
+    },
+    "additionalProperties": false,
+    "definitions": {
+        "asyncExec": {
+            "title": "Async execution of javascript.",
+            "oneOf": [{
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "title": "Async exec method",
+                        "type": "string",
+                        "enum": [
+                            "domReady"
+                        ],
+                        "default": "domReady"
+                    }
+                },
+                "required": ["type"]
+            }, {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "title": "Async exec method",
+                        "type": "string",
+                        "enum": [
+                            "requestAnimationFrame"
+                        ],
+                        "default": "requestAnimationFrame"
+                    },
+                    "frame": {
+                        "title": "Frame number to start script execution.",
+                        "type": "number",
+                        "minimum": 1,
+                        "default": 1
+                    }
+                },
+                "required": ["type"]
+            }, {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "title": "Async exec method",
+                        "type": "string",
+                        "enum": [
+                            "requestIdleCallback"
+                        ],
+                        "default": "requestIdleCallback"
+                    },
+                    "timeout": {
+                        "title": "Timeout to force script execution.",
+                        "type": "number",
+                        "minimum": 1
+                    },
+                    "setTimeout": {
+                        "title": "setTimeout fallback for browsers that do not support requestIdleCallback (leave blank to disable async execution)",
+                        "type": "number",
+                        "minimum": 1
+                    }
+                },
+                "required": ["type", "timeout"]
+            }, {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "title": "Async exec method",
+                        "type": "string",
+                        "enum": [
+                            "inview"
+                        ],
+                        "default": "inview"
+                    },
+                    "selector": {
+                        "title": "CSS selector",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "offset": {
+                        "title": "Offset in pixels from the edge of the element.",
+                        "type": "number"
+                    }
+                },
+                "required": ["type", "selector"]
+            }, {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "title": "Async exec method",
+                        "type": "string",
+                        "enum": [
+                            "media"
+                        ],
+                        "default": "media"
+                    },
+                    "media": {
+                        "title": "Media query",
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "required": ["type", "media"]
+            }]
+        }
+    }
+}

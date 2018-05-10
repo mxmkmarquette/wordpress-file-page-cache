@@ -1,0 +1,5 @@
+= Changelog archive =
+
+This is an archive of older and core update changelog entries. Most recent plugin update entries are maintained in readme.txt
+
+

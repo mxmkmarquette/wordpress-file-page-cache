@@ -1,0 +1,102 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-autoprefix.json",
+    "title": "autoprefix Options",
+    "description": "Add vendor prefixes to CSS rules using values from Can I Use.",
+    "oneOf": [{
+        "type": "boolean"
+    }, {
+        "type": "object",
+        "properties": {
+            "enabled": {
+                "type": "boolean",
+                "default": false
+            },
+            "config": {
+                "properties": {
+                    "browsers": {
+                        "title": "List of browsers query (like <code>last 2 versions</code>). See <a href=\"https://github.com/ai/browserslist#queries\" target=\"_blank\">Browserslist docs</a> for available queries and default value.",
+                        "oneOf": [{
+                            "type": "boolean",
+                            "enum": [
+                                false
+                            ]
+                        }, {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "queries": {
+                                    "title": "Enter browsers queries.",
+                                    "type": "array",
+                                    "items": {
+                                        "title": "A browsers query.",
+                                        "type": "string"
+                                    },
+                                    "uniqueItems": true
+                                }
+                            },
+                            "required": [
+                                "enabled"
+                            ],
+                            "additionalProperties": false
+                        }],
+                        "default": false
+                    },
+                    "cascade": {
+                        "title": "Use Visual Cascade if CSS is uncompressed.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "add": {
+                        "title": "Add prefixes.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "remove": {
+                        "title": "Remove outdated prefixes.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "supports": {
+                        "title": "Add prefixes for <code>@supports</code> parameters.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "flexbox": {
+                        "title": "Add prefixes for flexbox properties.",
+                        "oneOf": [{
+                            "type": "boolean"
+                        }, {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "no-2009": {
+                                    "title": "Add prefixes only for final and IE versions of specification.",
+                                    "type": "boolean",
+                                    "default": false
+                                }
+                            },
+                            "required": [
+                                "enabled"
+                            ],
+                            "additionalProperties": false
+                        }],
+                        "default": true
+                    },
+                    "grid": {
+                        "title": "Add IE prefixes for Grid Layout properties.",
+                        "type": "boolean",
+                        "default": false
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "additionalProperties": false
+    }],
+    "default": false
+}

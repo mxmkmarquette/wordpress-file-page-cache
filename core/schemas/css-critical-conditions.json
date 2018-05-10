@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-critical-conditions.json",
+    "title": "Match on any condition in array.",
+    "description": "Critical CSS conditions",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+        "oneOf": [{
+            "$ref": "#/definitions/condition"
+        }, {
+            "title": "Match on all conditions in array.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "#/definitions/condition"
+            },
+            "uniqueItems": true
+        }]
+    },
+    "uniqueItems": true,
+
+    "definitions": {
+        "condition": {
+            "title": "Condition configuration object",
+            "type": "object",
+            "properties": {
+                "method": {
+                    "title": "The method to call.",
+                    "type": "string",
+                    "pattern": "^([\\A-Za-z0-9_-]+::)?[A-Za-z0-9_-]+$"
+                },
+                "arguments": {
+                    "title": "Arguments to apply to the method.",
+                    "default": "null",
+                    "oneOf": [{
+                        "type": "null"
+                    }, {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "oneOf": [{
+                                "type": "null"
+                            }, {
+                                "type": "boolean"
+                            }, {
+                                "type": "integer",
+                                "minimum": 1
+                            }, {
+                                "type": "string",
+                                "minLength": 1
+                            }, {
+                                "type": "array",
+                                "minItems": 1,
+                                "items": {
+                                    "oneOf": [{
+                                        "type": "null"
+                                    }, {
+                                        "type": "boolean"
+                                    }, {
+                                        "type": "integer",
+                                        "minimum": 1
+                                    }, {
+                                        "type": "string",
+                                        "minLength": 1
+                                    }, {
+                                        "type": "array",
+                                        "minItems": 1,
+                                        "items": {
+                                            "oneOf": [{
+                                                "type": "integer",
+                                                "minimum": 1
+                                            }, {
+                                                "type": "string",
+                                                "minLength": 1
+                                            }]
+                                        },
+                                        "uniqueItems": true
+                                    }]
+                                }
+                            }]
+                        }
+                    }]
+                },
+                "result": {
+                    "title": "The method result to match.",
+                    "oneOf": [{
+                        "type": "boolean",
+                        "default": true
+                    }, {
+                        "type": "integer"
+                    }, {
+                        "type": "string"
+                    }, {
+                        "title": "Match against an array.",
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "oneOf": [{
+                                "type": "integer"
+                            }, {
+                                "type": "string"
+                            }]
+                        },
+                        "uniqueItems": true
+                    }]
+                }
+            },
+            "required": ["method"]
+        }
+    }
+}

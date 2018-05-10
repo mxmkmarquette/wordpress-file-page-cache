@@ -1,0 +1,572 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "css-cleancss.json",
+    "title": "clean-css Options",
+    "description": "Schema for clean-css Options JSON.",
+    "type": "object",
+    "properties": {
+        "compatibility": {
+            "oneOf": [{
+                "type": "string"
+            }, {
+                "type": "object",
+                "properties": {
+                    "colors": {
+                        "type": "object",
+                        "properties": {
+                            "opacity": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "properties": {
+                        "type": "object",
+                        "properties": {
+                            "backgroundClipMerging": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "backgroundOriginMerging": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "backgroundSizeMerging": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "colors": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "ieBangHack": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "ieFilters": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "iePrefixHack": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "ieSuffixHack": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "merging": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "shorterLengthUnits": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "spaceAfterClosingBrace": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "urlQuotes": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "zeroUnits": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "selectors": {
+                        "adjacentSpace": {
+                            "title": "",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "ie7Hack": {
+                            "title": "",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "mergeablePseudoClasses": {
+                            "type": "array",
+                            "items": {
+                                "title": "A pseudo class to whitelist.",
+                                "type": "string"
+                            },
+                            "uniqueItems": true
+                        },
+                        "mergeablePseudoElements": {
+                            "type": "array",
+                            "items": {
+                                "title": "A pseudo element to whitelist.",
+                                "type": "string"
+                            },
+                            "uniqueItems": true
+                        },
+                        "mergeLimit": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "default": 8191
+                        },
+                        "multiplePseudoMerging": {
+                            "title": "",
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    "units": {
+                        "type": "object",
+                        "properties": {
+                            "ch": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "in": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "pc": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "pt": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "rem": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "vh": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "vm": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "vmax": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "vmin": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": true
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "additionalProperties": false
+            }]
+        },
+        "format": {
+            "oneOf": [{
+                "type": "string",
+                "enum": [
+                    "beautify",
+                    "keep-breaks"
+                ]
+            }, {
+                "type": "object",
+                "properties": {
+                    "breaks": {
+                        "type": "object",
+                        "properties": {
+                            "afterAtRule": {
+                                "oneOf": [{
+                                    "title": "",
+                                    "type": "boolean",
+                                    "default": false
+                                }, {
+                                    "type": "string"
+                                }]
+                            },
+                            "afterBlockBegins": {
+                                "oneOf": [{
+                                    "title": "",
+                                    "type": "boolean",
+                                    "default": false
+                                }, {
+                                    "type": "string"
+                                }]
+                            },
+                            "afterBlockEnds": {
+                                "oneOf": [{
+                                    "title": "",
+                                    "type": "boolean",
+                                    "default": false
+                                }, {
+                                    "type": "string"
+                                }]
+                            },
+                            "afterComment": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "afterProperty": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "afterRuleBegins": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "afterRuleEnds": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "beforeBlockEnds": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "betweenSelectors": {
+                                "title": "",
+                                "type": "boolean",
+                                "default": false
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "indentBy": {
+                        "type": "number",
+                        "minimum": 0,
+                        "default": 0
+                    },
+                    "indentWith": {
+                        "type": "string",
+                        "enum": [
+                            "space",
+                            "tab"
+                        ],
+                        "default": "space"
+                    },
+                    "spaces": {
+                        "type": "object",
+                        "properties": {
+                            "aroundSelectorRelation": {
+                                "oneOf": [{
+                                    "title": "",
+                                    "type": "boolean",
+                                    "default": false
+                                }, {
+                                    "type": "string"
+                                }]
+                            },
+                            "beforeBlockBegins": {
+                                "oneOf": [{
+                                    "title": "",
+                                    "type": "boolean",
+                                    "default": false
+                                }, {
+                                    "type": "string"
+                                }]
+                            },
+                            "beforeValue": {
+                                "oneOf": [{
+                                    "title": "",
+                                    "type": "boolean",
+                                    "default": false
+                                }, {
+                                    "type": "string"
+                                }]
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "wrapAt": {
+                        "title": "",
+                        "type": "boolean",
+                        "default": false
+                    }
+                },
+                "additionalProperties": false
+            }]
+        },
+        "inline": {
+            "title": "Whitelists which @import rules will be processed.",
+            "type": "array",
+            "items": {
+                "title": "An @import rule.",
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "sourceMap": {
+            "title": "Create CSS source maps.",
+            "type": "boolean",
+            "default": true
+        },
+        "level": {
+            "title": "Optimization level configuration.",
+            "type": "object",
+            "properties": {
+                "1": {
+                    "title": "Level 1 Optimizations",
+                    "type": "object",
+                    "properties": {
+                        "all": {
+                            "title": "All optimizations",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "cleanupCharsets": {
+                            "title": "Move `@charset` to the front of a stylesheet",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "normalizeUrls": {
+                            "title": "URL normalization",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "optimizeBackground": {
+                            "title": "`background` property optimization",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "optimizeBorderRadius": {
+                            "title": "`border-radius` property optimizations",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "optimizeFilter": {
+                            "title": "`filter` property optimizations",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "optimizeFont": {
+                            "title": "`font` property optimizations",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "optimizeFontWeight": {
+                            "title": "`font-weight` property optimizations",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "optimizeOutline": {
+                            "title": "`outline` property optimizations",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "removeEmpty": {
+                            "title": "Remove empty rules and nested blocks",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "removeNegativePaddings": {
+                            "title": "Remove negative paddings",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "removeQuotes": {
+                            "title": "Remove quotes when unnecessary",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "removeWhitespace": {
+                            "title": "Remove unused whitespace",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "replaceMultipleZeros": {
+                            "title": "Remove redundant zeros",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "replaceTimeUnits": {
+                            "title": "Replace time units with shorter value",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "replaceZeroUnits": {
+                            "title": "Replace zero values with units",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "roundingPrecision": {
+                            "title": "Round pixel values to `N` decimal place",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "selectorsSortingMethod": {
+                            "title": "Denote selector sorting method",
+                            "oneOf": [{
+                                "type": "boolean",
+                                "enum": [false]
+                            }, {
+                                "title": "Sorting method.",
+                                "type": "string",
+                                "enum": [
+                                    "natural",
+                                    "standard",
+                                    "none"
+                                ],
+                                "default": "standard"
+                            }],
+                            "default": {
+                                "enabled": true,
+                                "method": "standard"
+                            }
+                        },
+                        "specialComments": {
+                            "title": "Denote a number of /*! ... */ comments preserved",
+                            "oneOf": [{
+                                "type": "boolean",
+                                "enum": [false]
+                            }, {
+                                "type": "number",
+                                "minimum": 1,
+                                "placeholder": "Leave blank for all",
+                                "default": ""
+                            }],
+                            "default": false
+                        },
+                        "tidyAtRules": {
+                            "title": "Control at-rules (e.g. `@charset`, `@import`) optimizing",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "tidyBlockScopes": {
+                            "title": "Control block scopes (e.g. `@media`) optimizing",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "tidySelectors": {
+                            "title": "Control selectors optimizing",
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "2": {
+                    "title": "Level 2 Optimizations",
+                    "type": "object",
+                    "properties": {
+                        "all": {
+                            "title": "All optimizations",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "mergeAdjacentRules": {
+                            "title": "Adjacent rules merging",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "mergeIntoShorthands": {
+                            "title": "Merge properties into shorthands",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "mergeMedia": {
+                            "title": "Merge `@media`",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "mergeNonAdjacentRules": {
+                            "title": "Merge non-adjacent rules",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "mergeSemantically": {
+                            "title": "Semantic merging",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "overrideProperties": {
+                            "title": "Override properties based on understandability",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "removeEmpty": {
+                            "title": "Remove empty rules and nested blocks",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "reduceNonAdjacentRules": {
+                            "title": "Reduce non-adjacent rules",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "removeDuplicateFontRules": {
+                            "title": "Remove duplicate `@font-face`",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "removeDuplicateMediaBlocks": {
+                            "title": "Remove duplicate `@media`",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "removeDuplicateRules": {
+                            "title": "Remove duplicate rules",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "removeUnusedAtRules": {
+                            "title": "Remove unused at rules",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "restructureRules": {
+                            "title": "Restructure rules",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "skipProperties": {
+                            "title": "Properties to ignore",
+                            "oneOf": [{
+                                "type": "boolean",
+                                "enum": [false]
+                            }, {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                            "uniqueItems": true,
+                            "default": []
+                            }],
+                            "default": false
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}

@@ -1,0 +1,475 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "headers.json",
+    "title": "Security Headers Configuration",
+    "description": "Schema for Security Headers Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "hsts": {
+            "title": "Enable Strict Transport Security",
+            "oneOf": [{
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "title": "Enable Strict Transport Security header",
+                        "type": "boolean",
+                        "enum": [false]
+                    },
+                    "includeSubdomains": {},
+                    "preload": {},
+                    "max-age": {}
+                },
+                "required": ["enabled"],
+                "additionalProperties": false
+            }, {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "title": "Enable Strict Transport Security header",
+                        "type": "boolean",
+                        "enum": [true]
+                    },
+                    "includeSubdomains": {
+                        "title": "Enable includeSubdomains flag",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "preload": {
+                        "title": "Enable preload flag",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "max-age": {
+                        "title": "Maxium cache age",
+                        "type": "number",
+                        "minimum": 1,
+                        "default": 86400
+                    }
+
+                },
+                "required": ["enabled", "max-age"],
+                "additionalProperties": false
+            }]
+        },
+        "hpkp": {
+            "title": "Enable HTTP Public Key Pinning (HPKP)",
+            "oneOf": [{
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "title": "Enable HTTP Public Key Pinning (HPKP) header",
+                        "type": "boolean",
+                        "enum": [false]
+                    },
+                    "pin-sha256": {},
+                    "pin-sha256-backup": {},
+                    "includeSubdomains": {},
+                    "max-age": {},
+                    "reportUri": {}
+                },
+                "required": ["enabled"],
+                "additionalProperties": false
+            }, {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "title": "Enable HTTP Public Key Pinning (HPKP) header",
+                        "type": "boolean",
+                        "enum": [true]
+                    },
+                    "pin-sha256": {
+                        "title": "Base64 encoded Subject Public Key Information (SPKI) fingerprint",
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "pin-sha256-backup": {
+                        "title": "Backup Base64 encoded Subject Public Key Information (SPKI) fingerprint.",
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "includeSubdomains": {
+                        "title": "Enable includeSubdomains flag",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "max-age": {
+                        "title": "Maxium cache age",
+                        "type": "number",
+                        "minimum": 1,
+                        "default": 86400
+                    },
+                    "reportUri": {
+                        "title": "Report URI",
+                        "oneOf": [{
+                            "type": "string",
+                            "enum": [""]
+                        }, {
+                            "type": "string",
+                            "format": "uri"
+                        }]
+                    }
+                },
+                "required": ["enabled", "pin-sha256", "pin-sha256-backup", "max-age"],
+                "additionalProperties": false
+            }]
+        },
+        "x-frame-options": {
+            "title": "Enable X-Frame-Options",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable X-Frame-Options header",
+                    "type": "boolean",
+                    "default": false
+                },
+                "mode": {
+                    "title": "Mode",
+                    "type": "string",
+                    "enum": ["DENY", "SAMEORIGIN", "ALLOW-FROM"],
+                    "default": "DENY"
+                },
+                "allowFrom": {
+                    "title": "Allow from URI",
+                    "type": "string",
+                    "format": "uri"
+                }
+
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        },
+        "x-xss-protection": {
+            "title": "Enable X-XSS-Protection",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable X-XSS-Protection header",
+                    "type": "boolean",
+                    "default": false
+                },
+                "mode": {
+                    "title": "Mode",
+                    "type": "string",
+                    "enum": ["0", "1", "block", "report"],
+                    "default": "block"
+                },
+                "reportUri": {
+                    "title": "Report URI",
+                    "oneOf": [{
+                        "type": "string",
+                        "enum": [""]
+                    }, {
+                        "type": "string",
+                        "format": "uri"
+                    }]
+                }
+
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        },
+        "x-content-type-options": {
+            "title": "Enable X-Content-Type-Options header",
+            "type": "boolean",
+            "default": false
+        },
+        "referrer-policy": {
+            "title": "Enable Referrer-Policy",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Referrer-Policy header",
+                    "type": "boolean",
+                    "default": false
+                },
+                "mode": {
+                    "title": "Mode",
+                    "type": "string",
+                    "enum": ["no-referrer", "no-referrer-when-downgrade", "origin", "origin-when-cross-origin", "same-origin", "strict-origin", "strict-origin-when-cross-origin", "unsafe-url"],
+                    "default": "no-referrer"
+                }
+
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        },
+        "expect-ct": {
+            "title": "Enable Expect-CT",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Expect-CT header",
+                    "type": "boolean",
+                    "default": false
+                },
+                "enforce": {
+                    "title": "Enable enforce mode",
+                    "type": "boolean",
+                    "default": false
+                },
+                "reportUri": {
+                    "title": "Report URI",
+                    "oneOf": [{
+                        "type": "string",
+                        "enum": [""]
+                    }, {
+                        "type": "string",
+                        "format": "uri"
+                    }]
+                },
+                "max-age": {
+                    "title": "Maxium cache age",
+                    "type": "number",
+                    "minimum": 1,
+                    "default": 86400
+                }
+
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        },
+        "x-dns-prefetch-control": {
+            "title": "Disable DNS prefetching (when true)",
+            "type": "boolean",
+            "default": false
+        },
+        "x-permitted-cross-domain-policies": {
+            "title": "Enable cross-domain policy for Adobe Flash Player and Adobe Acrobat.",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable X-Permitted-Cross-Domain-Policies header",
+                    "type": "boolean",
+                    "default": false
+                },
+                "mode": {
+                    "title": "Mode",
+                    "type": "string",
+                    "enum": ["none", "master-only", "by-content-type", "by-ftp-filename", "all"],
+                    "default": "none"
+                }
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        },
+        "x-powered-by": {
+            "title": "Remove X-Powered-By header.",
+            "type": "boolean",
+            "default": false
+        },
+        "report-to": {
+            "title": "Enable Reporting API report-to header",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Reporting API report-to header",
+                    "type": "boolean",
+                    "default": false
+                },
+                "endpoints": {
+                    "title": "Reporting endpoints",
+                    "type": "array",
+                    "items": {
+                        "title": "Report-To endpoint JSON",
+                        "type": "object",
+                        "properties": {
+                            "url": {
+                                "type": "string",
+                                "format": "uri",
+                                "minLength": 1
+                            },
+                            "group": {
+                                "type": "string",
+                                "minLength": 1,
+                                "default": "default"
+                            },
+                            "includeSubdomains": {
+                                "title": "Enable includeSubdomains flag",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "max-age": {
+                                "title": "Endpoint life time",
+                                "type": "number",
+                                "minimum": 0,
+                                "default": 86400
+                            }
+                        },
+                        "required": ["url"],
+                        "additionalProperties": false
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        },
+        "access-control-allow-origin": {
+            "title": "Enable Access-Control-Allow-Origin header",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Access-Control-Allow-Origin header",
+                    "type": "boolean",
+                    "default": false
+                },
+                "all": {
+                    "title": "Any origin (wildcard *)",
+                    "type": "boolean",
+                    "default": false
+                },
+                "origins": {
+                    "title": "Origin",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "format": "uri",
+                        "minLength": 1
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        },
+        "access-control-allow-credentials": {
+            "title": "Enable Access-Control-Allow-Credentials header",
+            "type": "boolean",
+            "default": false
+        },
+        "access-control-max-age": {
+            "title": "Max cache age of the result of a preflight request.",
+            "oneOf": [{
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "title": "Enable Access-Control-Max-Age header",
+                        "type": "boolean",
+                        "enum": [false]
+                    },
+                    "max-age": {}
+                },
+                "additionalProperties": false
+            }, {
+                "type": "object",
+                "properties": {
+                    "enabled": {
+                        "title": "Enable Access-Control-Max-Age header",
+                        "type": "boolean",
+                        "enum": [true]
+                    },
+                    "max-age": {
+                        "title": "Maxium cache age",
+                        "type": "number",
+                        "minimum": 1
+                    }
+                },
+                "required": ["enabled", "max-age"],
+                "additionalProperties": false
+            }]
+        },
+        "access-control-allow-methods": {
+            "title": "Enable Access-Controll-Allow-Methods header",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Access-Controll-Allow-Methods header",
+                    "type": "boolean",
+                    "default": false
+                },
+                "GET": {
+                    "title": "GET request",
+                    "type": "boolean",
+                    "default": false
+                },
+                "POST": {
+                    "title": "POST request",
+                    "type": "boolean",
+                    "default": false
+                },
+                "OPTIONS": {
+                    "title": "OPTIONS request",
+                    "type": "boolean",
+                    "default": false
+                },
+                "HEAD": {
+                    "title": "HEAD request",
+                    "type": "boolean",
+                    "default": false
+                },
+                "PUT": {
+                    "title": "PUT request",
+                    "type": "boolean",
+                    "default": false
+                },
+                "DELETE": {
+                    "title": "DELETE request",
+                    "type": "boolean",
+                    "default": false
+                },
+                "TRACE": {
+                    "title": "TRACE request",
+                    "type": "boolean",
+                    "default": false
+                },
+                "CONNECT": {
+                    "title": "CONNECT request",
+                    "type": "boolean",
+                    "default": false
+                },
+                "PATCH": {
+                    "title": "PATCH request",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        },
+        "access-control-allow-headers": {
+            "title": "Enable Access-Control-Allow-Headers header",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Access-Control-Allow-Headers header",
+                    "type": "boolean",
+                    "default": false
+                },
+                "headers": {
+                    "title": "Header names",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        },
+        "access-control-expose-headers": {
+            "title": "Enable Access-Control-Expose-Headers header",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Access-Control-Expose-Headers header",
+                    "type": "boolean",
+                    "default": false
+                },
+                "headers": {
+                    "title": "Header names",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "required": ["enabled"],
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}

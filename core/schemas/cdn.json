@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "cdn.json",
+    "title": "CDN Configuration",
+    "description": "Schema for CDN Configuration JSON.",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "title": "Load assets via a CDN",
+            "type": "boolean",
+            "default": false
+        },
+        "http2_push": {
+            "title": "Apply CDN to HTTP/2 pushed assets",
+            "type": "boolean",
+            "default": false
+        },
+        "url": {
+            "title": "CDN URL",
+            "type": "string",
+            "format": "uri",
+            "minLength": 1
+        },
+        "mask": {
+            "title": "CDN mask",
+            "type": "string"
+        }
+    },
+    "additionalProperties": false,
+    "required": ["enabled"]
+}
