@@ -2,7 +2,8 @@
 
 # WordPress File Page Cache
 
-Advanced file based page cache with PHP Opcache boost option (500x faster than Redis and Memcached).
+Advanced file based page cache with PHP Opcache boost option ([500x faster than Redis and Memcached](https://blog.graphiq.com/500x-faster-caching-than-redis-memcache-apc-in-php-hhvm-dcd26e8447ad)). 
+
 
 * [Documentation](https://github.com/o10n-x/wordpress-file-page-cache/tree/master/docs)
 * [Description](https://github.com/o10n-x/wordpress-file-page-cache#description)
