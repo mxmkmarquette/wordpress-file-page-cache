@@ -61,7 +61,7 @@ PHP Opcache may have a limited total size. The boost option can be configured fo
 
 ### Search & Replace
 
-A search & replace filter enables to modify the HTML before a page is cached.
+A search & replace filter enables to modify the HTML before a page is cached. It supports regular expression.
 
 ![Search & Replace](https://github.com/o10n-x/wordpress-file-page-cache/blob/master/docs/images/searchreplace.png)
 
