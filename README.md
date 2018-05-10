@@ -51,7 +51,7 @@ Google offers another new website performance test that is much tougher than the
 
 ## Description
 
-This plugin is a file based page cache with PHP Opcache boost option for [500x faster than Redis and Memcached](https://blog.graphiq.com/500x-faster-caching-than-redis-memcache-apc-in-php-hhvm-dcd26e8447ad) cache speed.
+This plugin is a file based page cache with PHP Opcache boost option ([500x faster than Redis and Memcached](https://blog.graphiq.com/500x-faster-caching-than-redis-memcache-apc-in-php-hhvm-dcd26e8447ad)).
 
 Due to the limit of the PHP Opcache total size, the boost option can be configured for individual pages.
 
