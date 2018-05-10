@@ -57,6 +57,12 @@ The plugin provides a cache policy editor that enables to selectively enable/dis
 
 ![Cache Policy Editor](https://github.com/o10n-x/wordpress-file-page-cache/blob/master/docs/images/cache-policy-editor.png)
  
-Due to the limit of the PHP Opcache total size, the boost option can be configured for individual pages.
+The PHP Opcache may have a limited total size. The boost option can be configured for individual pages using a individual cache policy.
+
+### Search & Replace
+
+A search & replace filter enables to modify the HTML before a page is cached.
+
+![Search & Replace](https://github.com/o10n-x/wordpress-file-page-cache/blob/master/docs/images/searchreplace.png)
 
 Additional features can be requested on the [Github forum](https://github.com/o10n-x/wordpress-file-page-cache/issues).
