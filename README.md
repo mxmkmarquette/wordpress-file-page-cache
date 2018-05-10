@@ -59,7 +59,7 @@ The plugin provides a cache policy editor that enables to selectively enable/dis
  
 PHP Opcache may have a limited total size. The boost option can be configured for individual pages using a individual cache policy.
 
-### Search & Replace
+### HTML Search & Replace
 
 A search & replace filter enables to modify the HTML before a page is cached. It supports regular expression.
 
