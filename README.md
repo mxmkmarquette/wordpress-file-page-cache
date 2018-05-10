@@ -56,7 +56,7 @@ This plugin is a file based page cache with PHP Opcache boost option ([500x fast
 The plugin provides a cache policy editor that enables to selectively enable/disable or configure the page cache based on page URLs or conditional methods such as `is_page`.
 
 ![Cache Policy Editor](https://github.com/o10n-x/wordpress-file-page-cache/blob/master/docs/images/cache-policy-editor.png)
-
+ 
 Due to the limit of the PHP Opcache total size, the boost option can be configured for individual pages.
 
 Additional features can be requested on the [Github forum](https://github.com/o10n-x/wordpress-file-page-cache/issues).
